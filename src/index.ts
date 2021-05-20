@@ -1,14 +1,14 @@
 /*********************************************************************
- *
- * @author Mario Randrianomearisoa <ranjamario@gmail.com>
- *
+ *                                                                   *
+ *       @author Mario Randrianomearisoa <ranjamario@gmail.com>      *
+ *                                                                   *
+ *                         BOOTSTRAP YOUR APP                        *
+ *                                                                   *
  *********************************************************************/
 
 import * as express from 'express';
 import * as mongoose from 'mongoose';
-import mongooseConfig from './config/db_config';
-
-require('dotenv').config();
+import { mongooseConfig, port } from './config/config';
 
 const app = express();
 
@@ -19,7 +19,7 @@ const app = express();
  *****************************************************/
 
 app.get('/', (req, res) => {
-  res.send('well done     <j!!!');
+  res.send('well done');
 });
 
 /*****************************************************
@@ -39,7 +39,7 @@ mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
     console.log(error);
     throw error;
   } else {
-    console.log(`Database connection on: ${mongooseConfig.dsn} ✅`);
+    console.log(`Database :: connection on: ${mongooseConfig.dsn} ✅`);
   }
 });
 
@@ -49,8 +49,6 @@ mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
  *
  ******************************************************/
 
-const port = process.env.PORT || 2222;
-
 app.listen(port, () => {
-  console.log(`The application is running on port ${port} ! 🎉 `);
+  console.log(`Server :: The application is running on port ${port} ! 🎉 `);
 });
