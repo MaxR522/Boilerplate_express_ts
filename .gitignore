@@ -1,0 +1,19 @@
+# Generated output
+dist
+dist/
+
+# Dependency directories
+node_modules/
+node_modules
+
+# dotenv environment variables file
+.env
+.env.test
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
