@@ -1,6 +1,6 @@
 /*********************************************************************
  *                                                                   *
- *       @author Mario Randrianomearisoa <ranjamario@gmail.com>      *
+ *      @author Mario Randrianomearisoa <ranjamario@gmail.com>       *
  *                                                                   *
  *                         BOOTSTRAP YOUR APP                        *
  *                                                                   *
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 
 mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
   if (error) {
-    console.log(error);
+    console.log(`${error} ❌`);
     throw error;
   } else {
     console.log(`Database :: connection on: ${mongooseConfig.dsn} ✅`);
@@ -49,6 +49,10 @@ mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
  *
  ******************************************************/
 
-app.listen(port, () => {
-  console.log(`Server :: The application is running on port ${port} ! 🎉 `);
-});
+app
+  .listen(port, '0.0.0.0', () => {
+    console.log(`Server :: The application is running on port ${port} ! 🎉 `);
+  })
+  .on('error', (error) => {
+    console.log(`${error} ❌`);
+  });
