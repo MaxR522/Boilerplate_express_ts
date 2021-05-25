@@ -13,12 +13,22 @@ declare var process: {
     MONGOOSE_URL: string;
     MAX_UPLOAD_LIMIT: string;
     ORIGIN: string;
+    ACCES_TOKEN_SECRET: string;
+    REFRESH_TOKEN_SECRET: string;
+    ACCESS_TOKEN_LIMIT: string;
+    REFRESH_TOKEN_LIMIT: string;
+    REDIS_PORT: number;
+    REDIS_HOST: string;
   };
 };
 
 export const mongooseConfig = {
   dsn: process.env.MONGOOSE_URL || '',
-  options: { useNewUrlParser: true, useUnifiedTopology: true },
+  options: {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
 };
 
 export const port = process.env.PORT || 2222;
@@ -33,3 +43,14 @@ export const corsOption = {
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
+
+export const accessTokenSecret =
+  process.env.ACCES_TOKEN_SECRET || 'MyAccessSecret ';
+export const refreshTokenSecret =
+  process.env.REFRESH_TOKEN_SECRET || 'MyRefreshSecret';
+
+export const accessTokenLimit = process.env.ACCESS_TOKEN_LIMIT || '30m';
+export const refreshTokenLimit = process.env.REFRESH_TOKEN_LIMIT || '30d';
+
+export const redisPort = process.env.REDIS_PORT || 6379;
+export const redisHost = process.env.REDIS_HOST || '127.0.0.1';
