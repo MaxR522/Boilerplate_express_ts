@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-const createValidationFor = (route: string) => {
+const authValidationFor = (route: string) => {
   switch (route) {
     case 'register':
       return [
@@ -23,8 +23,7 @@ const createValidationFor = (route: string) => {
         body('dateOfBirth', 'Wrong format of date in DateOfBirth').custom(
           (value) => {
             // MM/DD/YYYY
-            const validDate: any = new Date(value);
-            return validDate === 'Invalid Date';
+            return isNaN(Date.parse(value)) ? false : true;
           },
         ),
       ];
@@ -40,4 +39,4 @@ const createValidationFor = (route: string) => {
   }
 };
 
-export default createValidationFor;
+export default authValidationFor;
