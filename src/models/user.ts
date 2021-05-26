@@ -14,7 +14,6 @@ const UserSchema = new mongoose.Schema(
     fullname: {
       type: String,
       required: true,
-      min: 4,
       max: 255,
     },
     picture: {
@@ -28,6 +27,11 @@ const UserSchema = new mongoose.Schema(
       max: 255,
     },
     dateOfBirth: Date,
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
 
     // Oauth
     tokens: Array,

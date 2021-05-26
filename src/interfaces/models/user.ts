@@ -11,6 +11,7 @@ interface IUser {
   picture: string;
   password: string;
   dateOfBirth: Date;
+  role: string;
 
   // Oauth
   token: Tokens[];

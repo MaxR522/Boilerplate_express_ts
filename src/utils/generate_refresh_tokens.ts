@@ -3,20 +3,22 @@ import redis_client from '../index';
 import { ObjectId } from 'mongoose';
 
 // Method to generate and store in Redis the refresh token
-const generateRefreshToken = (
+const generateRefreshToken = async (
+  ipAdress: string,
   user_id: ObjectId,
-  playload: any,
+  payload: any,
   secret: string,
   timeLimit: string,
-) => {
-  const refresh_token = jwt.sign(playload, secret, { expiresIn: timeLimit });
-
-  redis_client.get(user_id.toString(), (err, data) => {
+): Promise<string> => {
+  const refresh_token = await jwt.sign(payload, secret, {
+    expiresIn: timeLimit,
+  });
+  redis_client.get(user_id.toString(), async (err, data) => {
     if (err) throw err;
 
     redis_client.set(
       user_id.toString(),
-      JSON.stringify({ token: refresh_token }),
+      JSON.stringify({ token: refresh_token, ipAdress: ipAdress }),
     );
   });
 

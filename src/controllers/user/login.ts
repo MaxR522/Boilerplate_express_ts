@@ -9,6 +9,7 @@ import {
   refreshTokenLimit,
 } from '../../config/config';
 import generateRefreshToken from '../../utils/generate_refresh_tokens';
+import redis_client from '../../index';
 
 const Login = async (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -41,51 +42,78 @@ const Login = async (req: Request, res: Response) => {
 
   if (user) {
     // Compare the request password with user hashed password
-    bcrypt.compare(_password, user.password, (err: any, isMatch: boolean) => {
-      if (err) {
-        return res.status(400).json({
-          success: 'false',
-          message: 'something went wrong',
-          error: err,
+    bcrypt.compare(
+      _password,
+      user.password,
+      async (err: any, isMatch: boolean) => {
+        if (err) {
+          return res.status(400).json({
+            success: 'false',
+            message: 'something went wrong',
+            error: err,
+          });
+        }
+
+        // If the req password doesn't match with hashed password in database
+        if (!isMatch) {
+          return res.status(401).json({
+            success: 'false',
+            message: 'Wrong email or password',
+          });
+        }
+
+        // define playload inside jwt tokens
+        const payload = {
+          sub: user._id,
+          email: user.email,
+          role: user.role,
+        };
+
+        // Generate access and refresh tokens if no error and password matched
+        const access_token = await jwt.sign(payload, accessTokenSecret, {
+          expiresIn: accessTokenLimit,
         });
-      }
 
-      if (!isMatch) {
-        return res.status(401).json({
-          success: 'false',
-          message: 'Wrong email or password',
+        // Verify in redis db if there is already a refresh token generated
+        // Refresh token doesn't change until the user revoke it
+
+        redis_client.get(user._id.toString(), async (err, data) => {
+          if (err) throw err;
+
+          if (data === null) {
+            const refresh_token = await generateRefreshToken(
+              req.ip,
+              user._id,
+              payload,
+              refreshTokenSecret,
+              refreshTokenLimit,
+            );
+
+            return res.status(200).json({
+              success: 'true',
+              message: 'User logged in successfully',
+              data: user,
+              tokens: {
+                access_token,
+                refresh_token,
+              },
+            });
+          } else if (JSON.parse(data).token) {
+            const refresh_token = await JSON.parse(data).token;
+
+            return res.status(200).json({
+              success: 'true',
+              message: 'User logged in successfully',
+              data: user,
+              tokens: {
+                access_token,
+                refresh_token,
+              },
+            });
+          }
         });
-      }
-
-      // define playload inside jwt tokens
-      const playload = {
-        sub: user._id,
-        email: user.email,
-      };
-
-      // Generate access and refresh tokens if no error and password matched
-      const access_token = jwt.sign(playload, accessTokenSecret, {
-        expiresIn: accessTokenLimit,
-      });
-
-      const refresh_token = generateRefreshToken(
-        user._id,
-        playload,
-        refreshTokenSecret,
-        refreshTokenLimit,
-      );
-
-      // include in the success(200) json response the jwt tokens
-      return res.status(200).json({
-        success: 'true',
-        message: 'User logged in successfully',
-        data: user,
-        tokens: {
-          access_token,
-          refresh_token,
-        },
-      });
-    });
+      },
+    );
   }
 };
 

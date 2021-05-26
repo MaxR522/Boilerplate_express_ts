@@ -41,9 +41,8 @@ app.use(cors(corsOption));
 // Disable x-powered-by header
 app.disable('x-powered-by');
 
-// Enable express-validator
-// app.use(expressValidator());
-
+// Enable trust proxy
+app.enable('trust proxy');
 /*****************************************************
  *
  *  Define all Routes
