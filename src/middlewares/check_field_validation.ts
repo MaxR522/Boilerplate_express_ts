@@ -8,7 +8,7 @@ const checkValidationResult = (req: Request, res: Response, next: any) => {
     return res.status(422).json({
       success: 'false',
       message: 'Params error',
-      data: errors.array(),
+      errors: errors.array(),
     });
   }
 

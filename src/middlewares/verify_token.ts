@@ -5,17 +5,17 @@ import User from '../models/user';
 
 const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const access_token: any = req.headers.authorization
+    const accessToken: any = req.headers.authorization
       ? req.headers.authorization.split(' ')[1]
       : '';
 
     // Verify token validity
-    jwt.verify(access_token, accessTokenSecret, (error: any, decoded: any) => {
+    jwt.verify(accessToken, accessTokenSecret, (error: any, decoded: any) => {
       if (error) {
         return res.status(400).json({
           success: 'false',
           message: 'Something went wrong',
-          data: error,
+          errors: error,
         });
       }
 
@@ -25,7 +25,7 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
           return res.status(400).json({
             success: 'false',
             message: 'Something went wrong',
-            data: error,
+            errors: error,
           });
         }
 
@@ -42,7 +42,7 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
     return res.status(401).json({
       success: 'false',
       message: 'Invalid session',
-      data: error,
+      errors: error,
     });
   }
 };

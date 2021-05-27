@@ -5,9 +5,9 @@ import User from '../../models/user';
 
 const NewTokens = (req: Request, res: Response) => {
   try {
-    const refresh_token = req.body.token;
-    const decoded = refresh_token
-      ? jwt.decode(refresh_token, { complete: true })
+    const refreshToken = req.body.token;
+    const decoded = refreshToken
+      ? jwt.decode(refreshToken, { complete: true })
       : '';
 
     if (decoded) {
@@ -19,7 +19,7 @@ const NewTokens = (req: Request, res: Response) => {
             return res.status(400).json({
               success: 'false',
               message: 'Something went wrong',
-              data: error,
+              errors: error,
             });
           }
 
@@ -36,14 +36,14 @@ const NewTokens = (req: Request, res: Response) => {
             role: user.role,
           };
 
-          const access_token = jwt.sign(playload, accessTokenSecret, {
+          const accessToken = jwt.sign(playload, accessTokenSecret, {
             expiresIn: accessTokenLimit,
           });
 
           return res.status(200).json({
             success: 'true',
             message: 'new tokens generated',
-            access_token,
+            accessToken,
           });
         },
       );
@@ -52,7 +52,7 @@ const NewTokens = (req: Request, res: Response) => {
     return res.status(400).json({
       success: 'false',
       message: 'something went wrong',
-      data: error,
+      errors: error,
     });
   }
 };

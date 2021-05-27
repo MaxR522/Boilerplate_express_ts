@@ -16,14 +16,14 @@ const authValidationFor = (route: string) => {
           'password',
           'password must contain digit, lower case and upper case letter',
         ).custom((value: string) => {
-          const password_rgxp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
-          return password_rgxp.test(value);
+          const passwordRgxp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
+          return passwordRgxp.test(value);
         }),
         body('dateOfBirth', 'dateOfBirth cannot be blank').notEmpty(),
         body('dateOfBirth', 'Wrong format of date in DateOfBirth').custom(
           (value) => {
             // MM/DD/YYYY
-            return isNaN(Date.parse(value)) ? false : true;
+            return !isNaN(Date.parse(value));
           },
         ),
       ];

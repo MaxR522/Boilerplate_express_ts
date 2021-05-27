@@ -9,18 +9,18 @@ import {
   refreshTokenLimit,
 } from '../../config/config';
 import generateRefreshToken from '../../utils/generate_refresh_tokens';
-import redis_client from '../../index';
+import redisClient from '../../index';
 
 const Login = async (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
   const _password = req.body.password;
 
-  const user = await User.findOne({ email: _email }, (err: any) => {
-    if (err) {
+  const user = await User.findOne({ email: _email }, (error: any) => {
+    if (error) {
       return res.status(400).json({
         success: 'false',
         message: 'something went wrong',
-        error: err,
+        errors: error,
       });
     }
   });
@@ -45,12 +45,12 @@ const Login = async (req: Request, res: Response) => {
     bcrypt.compare(
       _password,
       user.password,
-      async (err: any, isMatch: boolean) => {
-        if (err) {
+      async (error: any, isMatch: boolean) => {
+        if (error) {
           return res.status(400).json({
             success: 'false',
             message: 'something went wrong',
-            error: err,
+            errors: error,
           });
         }
 
@@ -70,18 +70,18 @@ const Login = async (req: Request, res: Response) => {
         };
 
         // Generate access and refresh tokens if no error and password matched
-        const access_token = await jwt.sign(payload, accessTokenSecret, {
+        const accessToken = await jwt.sign(payload, accessTokenSecret, {
           expiresIn: accessTokenLimit,
         });
 
         // Verify in redis db if there is already a refresh token generated
         // Refresh token doesn't change until the user revoke it
 
-        redis_client.get(user._id.toString(), async (err, data) => {
-          if (err) throw err;
+        redisClient.get(user._id.toString(), async (error, data) => {
+          if (error) throw error;
 
           if (data === null) {
-            const refresh_token = await generateRefreshToken(
+            const refreshToken = await generateRefreshToken(
               req.ip,
               user._id,
               payload,
@@ -89,27 +89,45 @@ const Login = async (req: Request, res: Response) => {
               refreshTokenLimit,
             );
 
-            return res.status(200).json({
-              success: 'true',
-              message: 'User logged in successfully',
-              data: user,
-              tokens: {
-                access_token,
-                refresh_token,
-              },
-            });
+            return (
+              res
+                .status(200)
+                // .cookie('refresh_token', refreshToken, {
+                //   expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
+                //   secure: false, // set to true if your using https
+                //   httpOnly: true,
+                // })
+                .json({
+                  success: 'true',
+                  message: 'User logged in successfully',
+                  data: user,
+                  tokens: {
+                    accessToken,
+                    refreshToken,
+                  },
+                })
+            );
           } else if (JSON.parse(data).token) {
-            const refresh_token = await JSON.parse(data).token;
+            const refreshToken = await JSON.parse(data).token;
 
-            return res.status(200).json({
-              success: 'true',
-              message: 'User logged in successfully',
-              data: user,
-              tokens: {
-                access_token,
-                refresh_token,
-              },
-            });
+            return (
+              res
+                .status(200)
+                // .cookie('refresh_token', refreshToken, {
+                //   expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
+                //   secure: false, // set to true if your using https
+                //   httpOnly: true,
+                // })
+                .json({
+                  success: 'true',
+                  message: 'User logged in successfully',
+                  data: user,
+                  tokens: {
+                    accessToken,
+                    refreshToken,
+                  },
+                })
+            );
           }
         });
       },

@@ -21,7 +21,7 @@ const Register = async (req: Request, res: Response) => {
     return res.status(400).json({
       success: 'false',
       message: 'something went wrong',
-      data: error,
+      errors: error,
     });
   }
 
@@ -29,27 +29,27 @@ const Register = async (req: Request, res: Response) => {
   const salt = await bcrypt.genSalt(10);
 
   // now we set user password to hashed password
-  const _hashed_password = await bcrypt.hash(_password, salt);
+  const _hashedPassword = await bcrypt.hash(_password, salt);
 
   const user = new User({
     fullname: _fullname,
     email: _email,
-    password: _hashed_password,
+    password: _hashedPassword,
     dateOfBirth: _dateOfBirth,
   });
 
   try {
-    const saved_user = await user.save();
+    const savedUser = await user.save();
     return res.status(201).json({
       success: 'true',
       message: 'register success',
-      data: saved_user,
+      data: savedUser,
     });
   } catch (error) {
     return res.status(400).json({
       success: 'false',
       message: 'something went wrong',
-      data: error,
+      errors: error,
     });
   }
 };

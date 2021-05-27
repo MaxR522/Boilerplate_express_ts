@@ -10,8 +10,6 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as redis from 'redis';
 import * as cors from 'cors';
-import * as expressValidator from 'express-validator';
-import flash = require('express-flash');
 import {
   mongooseConfig,
   port,
@@ -73,9 +71,9 @@ mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
 });
 
 // Connection to redis client
-const redis_client = redis.createClient(redisPort, redisHost);
+const redisClient = redis.createClient(redisPort, redisHost);
 
-redis_client
+redisClient
   .on('connect', () => {
     console.log(`DATABASE :: connetion @ ${redisHost}:${redisPort} ✅`);
   })
@@ -84,7 +82,7 @@ redis_client
     throw error;
   });
 
-export default redis_client;
+export default redisClient;
 
 /******************************************************
  *

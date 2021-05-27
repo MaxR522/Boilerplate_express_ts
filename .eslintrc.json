@@ -12,6 +12,7 @@
   "plugins": ["@typescript-eslint"],
   "ignorePatterns": ["node_modules/**", "dist/**", "specs/**/*"],
   "rules": {
-    "no-console": 2
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": [2, "always"]
   }
 }
