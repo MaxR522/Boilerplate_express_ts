@@ -23,6 +23,15 @@ import apiRoute from './routes/api';
 
 const app = express();
 
+// custom typing
+declare global {
+  namespace Express {
+    interface Request {
+      propertyName: string;
+    }
+  }
+}
+
 /*****************************************************
  *
  *  Middlewares
@@ -66,7 +75,7 @@ mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
     console.log(`${error} ❌`);
     throw error;
   } else {
-    console.log(`Database :: connection @: ${mongooseConfig.dsn} ✅`);
+    console.log(`Database :: mongodb connection @: ${mongooseConfig.dsn} ✅`);
   }
 });
 
@@ -75,7 +84,7 @@ const redisClient = redis.createClient(redisPort, redisHost);
 
 redisClient
   .on('connect', () => {
-    console.log(`DATABASE :: connetion @ ${redisHost}:${redisPort} ✅`);
+    console.log(`DATABASE :: redis connetion @ ${redisHost}:${redisPort} ✅`);
   })
   .on('error', (error) => {
     console.log(`${error} ❌`);

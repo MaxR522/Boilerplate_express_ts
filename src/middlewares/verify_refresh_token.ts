@@ -13,11 +13,23 @@ const verifyRefreshToken = (
 
     // Verify refresh token validity
     jwt.verify(refreshToken, refreshTokenSecret, (error: any, decoded: any) => {
-      if (error) throw error;
+      if (error) {
+        return res.status(400).json({
+          success: 'false',
+          message: 'Something went wrong',
+          errors: error,
+        });
+      }
 
       // Compare refresh_token with the stored in redis
       redisClient.get(decoded.sub.toString(), (error, data) => {
-        if (error) throw error;
+        if (error) {
+          return res.status(400).json({
+            success: 'false',
+            message: 'Something went wrong',
+            errors: error,
+          });
+        }
 
         // If token inside redis is empty that's mean the user is logged out
         if (data === null) {
@@ -35,6 +47,8 @@ const verifyRefreshToken = (
           });
         }
 
+        req.userData = decoded;
+        req.refreshToken = refreshToken;
         next();
       });
     });

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { accessTokenSecret } from '../config/config';
-import User from '../models/user';
 
 const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -19,23 +18,10 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
         });
       }
 
-      // check the email in playload if it is not in database
-      User.findOne({ email: decoded.email }, (error: any, user: any) => {
-        if (error) {
-          return res.status(400).json({
-            success: 'false',
-            message: 'Something went wrong',
-            errors: error,
-          });
-        }
+      // Store userData and access token inside the request
+      req.userData = decoded;
+      req.accessToken = accessToken;
 
-        if (!user) {
-          return res.status(401).json({
-            success: 'false',
-            message: 'User not found',
-          });
-        }
-      });
       next();
     });
   } catch (error) {

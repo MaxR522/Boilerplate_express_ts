@@ -10,7 +10,11 @@
 
     /* Module Resolution Options */
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types",
+      "src/custom_typingsings"
+    ],
     "types": ["node"],
 
     /* Advanced Options */
