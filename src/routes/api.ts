@@ -14,6 +14,7 @@ import verifyAccessToken from '../middlewares/verify_token';
 import checkUser from '../middlewares/check_user';
 import blacklistedAccessCheck from '../middlewares/blacklist_access_token';
 
+// Init Router
 const route = Router();
 
 route.post(

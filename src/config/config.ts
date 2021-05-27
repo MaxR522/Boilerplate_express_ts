@@ -19,6 +19,7 @@ declare var process: {
     REFRESH_TOKEN_LIMIT: string;
     REDIS_PORT: number;
     REDIS_HOST: string;
+    TTL_ACCESS_TOKEN: number;
   };
 };
 
@@ -55,3 +56,5 @@ export const refreshTokenLimit = process.env.REFRESH_TOKEN_LIMIT || '30d';
 
 export const redisPort = process.env.REDIS_PORT || 6379;
 export const redisHost = process.env.REDIS_HOST || '127.0.0.1';
+
+export const ttlAccessToken = process.env.TTL_ACCESS_TOKEN || 60;

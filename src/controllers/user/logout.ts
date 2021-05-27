@@ -1,14 +1,11 @@
 import { Request, Response } from 'express';
-import * as jwt from 'jsonwebtoken';
 import redisClient from '../../index';
+import { ttlAccessToken } from '../../config/config';
 
 const Logout = async (req: Request, res: Response) => {
   try {
-    const accessToken = req.headers.authorization
-      ? await req.headers.authorization.split(' ')[1]
-      : null;
-
-    const decoded = accessToken ? await jwt.decode(accessToken) : null;
+    const accessToken = req.accessToken;
+    const decoded = req.userData;
 
     if (accessToken && decoded) {
       const userId = decoded.sub;
@@ -18,7 +15,7 @@ const Logout = async (req: Request, res: Response) => {
         `BL_${userId}`,
         accessToken.toString(),
         'EX',
-        60 * 60,
+        ttlAccessToken * 60,
         (error) => {
           if (error) {
             return res.status(400).json({
