@@ -10,7 +10,12 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": ["node_modules/**", "dist/**", "specs/**/*"],
+  "ignorePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "specs/**/*",
+    "src/custom_typings"
+  ],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "semi": [2, "always"]

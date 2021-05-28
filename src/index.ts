@@ -5,7 +5,6 @@
  *                         BOOTSTRAP YOUR APP                        *
  *                                                                   *
  *********************************************************************/
-
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as redis from 'redis';
@@ -22,15 +21,6 @@ import {
 import apiRoute from './routes/api';
 
 const app = express();
-
-// custom typing
-declare global {
-  namespace Express {
-    interface Request {
-      propertyName: string;
-    }
-  }
-}
 
 /*****************************************************
  *
@@ -50,6 +40,7 @@ app.disable('x-powered-by');
 
 // Enable trust proxy
 app.enable('trust proxy');
+
 /*****************************************************
  *
  *  Define all Routes

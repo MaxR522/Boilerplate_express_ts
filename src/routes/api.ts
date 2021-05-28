@@ -5,6 +5,7 @@ import Register from '../controllers/user/register';
 import Login from '../controllers/user/login';
 import NewToken from '../controllers/user/refresh_token';
 import Logout from '../controllers/user/logout';
+import RevokeRefreshToken from '../controllers/user/revoke_refresh_token';
 
 // Middlewares
 import authValidationFor from '../middlewares/auth_field_validators';
@@ -35,5 +36,7 @@ route.get(
   blacklistedAccessCheck,
   Logout,
 );
+
+route.post('/revoke', verifyRefreshToken, RevokeRefreshToken);
 
 export default route;

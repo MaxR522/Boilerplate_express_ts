@@ -13,7 +13,7 @@
     "typeRoots": [
       "./src/@types",
       "./node_modules/@types",
-      "src/custom_typingsings"
+      "src/custom_typings"
     ],
     "types": ["node"],
 

@@ -10,7 +10,7 @@ const Logout = async (req: Request, res: Response) => {
     if (accessToken && decoded) {
       const userId = decoded.sub;
 
-      // Blacklist access token during 60 minutes
+      // Blacklist access token
       await redisClient.set(
         `BL_${userId}`,
         accessToken.toString(),
