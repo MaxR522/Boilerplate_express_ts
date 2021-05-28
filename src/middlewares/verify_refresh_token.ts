@@ -14,7 +14,7 @@ const verifyRefreshToken = (
     // Verify refresh token validity
     jwt.verify(refreshToken, refreshTokenSecret, (error: any, decoded: any) => {
       if (error) {
-        return res.status(400).json({
+        return res.status(401).json({
           success: 'false',
           message: 'Something went wrong',
           errors: error,

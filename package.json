@@ -4,10 +4,10 @@
   "description": "Boilerplate for express typescript",
   "main": "dist",
   "scripts": {
-    "start": "node dist",
-    "test": "nodemon --watch . --ext ts --exec \"mocha -r ts-node/register specs/**/*.spec.ts\"",
+    "start": "NODE_ENV=production node dist",
+    "test": "NODE_ENV=test nodemon --watch . --ext ts --exec \"mocha -r ts-node/register tests/**/*.test.ts\"",
     "build": "tsc --project ./tsconfig.json",
-    "dev": "tsc --project ./tsconfig.json --watch & nodemon dist",
+    "dev": "tsc --project ./tsconfig.json --watch & NODE_ENV=development nodemon dist",
     "lint": "eslint '*/**/*.ts' --quiet --fix"
   },
   "repository": {

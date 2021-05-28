@@ -20,7 +20,7 @@ import {
 
 import apiRoute from './routes/api';
 
-const app = express();
+export const app = express();
 
 /*****************************************************
  *

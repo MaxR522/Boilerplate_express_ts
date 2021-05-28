@@ -28,7 +28,7 @@ const Login = async (req: Request, res: Response) => {
   if (!user) {
     return res.status(404).json({
       success: 'false',
-      message: 'user not found',
+      message: 'user not found, maybe not registered',
     });
   }
 

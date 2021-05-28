@@ -11,6 +11,9 @@ declare var process: {
   env: {
     PORT: number;
     MONGOOSE_URL: string;
+    MONGOOSE_URL_DEV: string;
+    MONGOOSE_URL_TEST: string;
+    MONGOOSE_URL_PROD: string;
     MAX_UPLOAD_LIMIT: string;
     ORIGIN: string;
     ACCES_TOKEN_SECRET: string;
@@ -20,11 +23,23 @@ declare var process: {
     REDIS_PORT: number;
     REDIS_HOST: string;
     TTL_ACCESS_TOKEN: number;
+    NODE_ENV: string;
   };
 };
 
+const env = process.env.NODE_ENV;
+
+if (env === 'test') {
+  process.env.MONGOOSE_URL = process.env.MONGOOSE_URL_TEST;
+} else if (env === 'development') {
+  process.env.MONGOOSE_URL = process.env.MONGOOSE_URL_DEV;
+} else if (env === 'production') {
+  process.env.MONGOOSE_URL = process.env.MONGOOSE_URL_PROD;
+}
+
+// console.log(process.env.MONGOOSE_URL);
 export const mongooseConfig = {
-  dsn: process.env.MONGOOSE_URL || '',
+  dsn: process.env.MONGOOSE_URL,
   options: {
     useNewUrlParser: true,
     useUnifiedTopology: true,

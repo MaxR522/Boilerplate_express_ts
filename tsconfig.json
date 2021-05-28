@@ -15,7 +15,7 @@
       "./node_modules/@types",
       "src/custom_typings"
     ],
-    "types": ["node"],
+    "types": ["node", "mocha"],
 
     /* Advanced Options */
     "skipLibCheck": true,
@@ -30,7 +30,7 @@
     "./node_modules",
     "./node_modules/*",
     "./node_modules/@types/node/index.d.ts",
-    "./specs",
+    "src/tests",
     "./src/interfaces",
     "./src/interfaces/*"
   ]
