@@ -41,11 +41,6 @@ app.disable('x-powered-by');
 // Enable trust proxy
 app.enable('trust proxy');
 
-// Return 404 when not found endpoint
-app.use((req: express.Request, res: express.Response) => {
-  res.status(404).json({ success: 'false', message: 'not found' });
-});
-
 /*****************************************************
  *
  *  Define all Routes
@@ -59,6 +54,37 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', apiRoute);
+
+/*****************************************************
+ *
+ *  Error handlers
+ *
+ *****************************************************/
+
+// Return 404 when not found endpoint
+app.use((req: express.Request, res: express.Response) => {
+  res.status(404).json({
+    success: 'false',
+    message: `endpoint ${req.originalUrl} not found`,
+  });
+});
+
+// Handle syntax error on request
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    if (err instanceof SyntaxError) {
+      return res.status(400).json({
+        success: 'false',
+        message: 'The body of your request is not valid json!',
+      });
+    }
+  },
+);
 
 /******************************************************
  *
