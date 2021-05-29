@@ -6,6 +6,8 @@ import Login from '../controllers/user/login';
 import NewToken from '../controllers/user/refresh_token';
 import Logout from '../controllers/user/logout';
 import RevokeRefreshToken from '../controllers/user/revoke_refresh_token';
+import Confirm from '../controllers/user/confirm';
+import ResendConfirmation from '../controllers/user/resend_confirmation';
 
 // Middlewares
 import authValidationFor from '../middlewares/auth_field_validators';
@@ -14,6 +16,7 @@ import verifyRefreshToken from '../middlewares/verify_refresh_token';
 import verifyAccessToken from '../middlewares/verify_token';
 import checkUser from '../middlewares/check_user';
 import blacklistedAccessCheck from '../middlewares/blacklist_access_token';
+import verifyConfirmationToken from '../middlewares/verify_confirmation_token';
 
 // Init Router
 const route = Router();
@@ -152,6 +155,12 @@ route.post(
  *    {
  *      "success": "false",
  *      "message": "Wrong email or password"
+ *    }
+ *
+ *    HTTP/1.1 401 (unauthorized) account not confirmed yet
+ *    {
+ *      "success": "false",
+ *      "message": "email not confirmed"
  *    }
  *
  *    HTTP/1.1 404 (not found) user not found
@@ -331,5 +340,59 @@ route.get(
  */
 
 route.post('/revoke', verifyRefreshToken, RevokeRefreshToken);
+
+route.get('/confirm/:confirmationToken', verifyConfirmationToken, Confirm);
+
+/**
+ * @api {post} /api/resend_confirmation 6. Resend confirmation email
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription Resend confirmation token
+ *
+ * @apiParam {String} email user's email
+ * @apiParamExample {json} Input
+ *    {
+ *      "email": "mario@gmail.com"
+ *    }
+ *
+ * @apiSuccess (200) {String} success Status of the request
+ * @apiSuccess (200) {String} message message response
+ * @apiSuccess (200) {Number} data user's email
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "success": "true",
+ *      "message": "A new confirmation email has been sent to: mario@gmail.com",
+ *      "data": "mario@gmail.com"
+ *    }
+ * @apiErrorExample {json} List error
+ *    HTTP/1.1 400 (Unauthorized) Some error random error, specified inside errors property
+ *    {
+ *      "success": "false",
+ *      "message": "Something went wrong"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 404 (not found) user not registered
+ *    {
+ *      "success": "false",
+ *      "message": "User not registered"
+ *    }
+ *
+ *    HTTP/1.1 422 (unprocessable entity) Missing or wrong param format
+ *    {
+ *      "success": "false",
+ *      "message": "Params error"
+ *      "errors": []
+ *    }
+ *
+ */
+
+route.post(
+  '/resend_confirmation',
+  authValidationFor('resend_confirmation'),
+  checkValidationResult,
+  ResendConfirmation,
+);
 
 export default route;

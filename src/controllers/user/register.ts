@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import User from '../../models/user';
+import sendConfirmationEmail from '../../mailers/confirmation';
+import * as jwt from 'jsonwebtoken';
+import {
+  confirmationTokenSecret,
+  confirmationTokenLimit,
+} from '../../config/config';
 
 const Register = async (req: Request, res: Response) => {
   const _fullname = req.body.fullname;
@@ -31,15 +37,31 @@ const Register = async (req: Request, res: Response) => {
   // now we set user password to hashed password
   const _hashedPassword = await bcrypt.hash(_password, salt);
 
+  // Generate confirmation token
+  const confirmationToken = await jwt.sign(
+    { email: _email },
+    confirmationTokenSecret,
+    { expiresIn: confirmationTokenLimit },
+  );
+
   const user = new User({
     fullname: _fullname,
     email: _email,
     password: _hashedPassword,
     dateOfBirth: _dateOfBirth,
+    confirmationToken: confirmationToken,
+    confirmationSentAt: new Date(),
   });
 
   try {
     const savedUser = await user.save();
+
+    sendConfirmationEmail(
+      savedUser.fullname,
+      savedUser.email,
+      savedUser.confirmationToken,
+    );
+
     return res.status(201).json({
       success: 'true',
       message: 'register success',

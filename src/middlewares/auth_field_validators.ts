@@ -34,6 +34,12 @@ const authValidationFor = (route: string) => {
         body('password', 'password cannot be blank').notEmpty(),
       ];
 
+    case 'resend_confirmation':
+      return [
+        body('email', 'email cannot be blank').notEmpty(),
+        body('email', 'Invalid email').isEmail(),
+      ];
+
     default:
       return [];
   }

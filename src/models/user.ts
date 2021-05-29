@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
     },
     confirmationSentAt: Date,
-    ConfirmedAt: Date,
+    confirmedAt: Date,
 
     // Password reset
     passwordResetToken: {

@@ -4,8 +4,6 @@ import redisClient from '../../index';
 const RevokeRefreshToken = (req: Request, res: Response) => {
   const userId = req.userData.sub;
 
-  console.log('Tonga ato ve ?');
-
   try {
     redisClient.del(userId.toString(), (error, reply) => {
       if (error) {

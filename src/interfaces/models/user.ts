@@ -19,7 +19,7 @@ interface IUser {
   // Confirmable
   confirmationToken: string;
   confirmationSentAt: Date;
-  ConfirmedAt: Date;
+  confirmedAt: Date;
 
   // Password reset
   passwordResetToken: string;

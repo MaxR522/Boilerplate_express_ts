@@ -62,6 +62,14 @@ const Login = async (req: Request, res: Response) => {
           });
         }
 
+        // Confirmation
+        if (!user.confirmedAt) {
+          return res.status(401).json({
+            success: 'false',
+            message: 'email not confirmed',
+          });
+        }
+
         // define playload inside jwt tokens
         const payload = {
           sub: user._id,
