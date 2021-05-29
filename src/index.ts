@@ -41,6 +41,11 @@ app.disable('x-powered-by');
 // Enable trust proxy
 app.enable('trust proxy');
 
+// Return 404 when not found endpoint
+app.use((req: express.Request, res: express.Response) => {
+  res.status(404).json({ success: 'false', message: 'not found' });
+});
+
 /*****************************************************
  *
  *  Define all Routes
