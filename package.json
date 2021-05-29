@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/MaxR522/Boilerplate_express_ts#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
