@@ -18,9 +18,9 @@
     "types": ["node", "mocha"],
 
     /* Advanced Options */
-    "skipLibCheck": true,
+    "skipLibCheck": true
     // "forceConsistentCasingInFileNames": true
-    "removeComments": true
+    // "removeComments": true
   },
   "files": ["./node_modules/@types/node/index.d.ts"],
   "include": ["src/**/*.ts", "index.ts"],

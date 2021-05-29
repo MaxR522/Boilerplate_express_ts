@@ -46,7 +46,8 @@ app.enable('trust proxy');
  *  Define all Routes
  *
  *****************************************************/
-// app.use(flash());
+// Serving static files from "public" folder
+app.use(express.static('doc'));
 
 app.get('/', (req, res) => {
   res.send('well done');

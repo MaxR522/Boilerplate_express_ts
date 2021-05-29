@@ -8,7 +8,8 @@
     "test": "NODE_ENV=test nodemon --watch . --ext ts --exec \"mocha -r ts-node/register tests/**/*.test.ts\"",
     "build": "tsc --project ./tsconfig.json",
     "dev": "tsc --project ./tsconfig.json --watch & NODE_ENV=development nodemon dist",
-    "lint": "eslint '*/**/*.ts' --quiet --fix"
+    "lint": "eslint '*/**/*.ts' --quiet --fix",
+    "doc": "apidoc -i src/ - o doc/"
   },
   "repository": {
     "type": "git",

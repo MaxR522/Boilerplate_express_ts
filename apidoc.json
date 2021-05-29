@@ -1,0 +1,9 @@
+{
+  "name": "Node, express typescript boilerplate",
+  "version": "1.0.0",
+  "description": "It's a small API boilerplate to start quickly your project",
+  "url": "http://localhost:4445",
+  "template": {
+    "forceLanguage": "en"
+  }
+}
