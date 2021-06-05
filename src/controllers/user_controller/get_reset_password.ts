@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import User from '../../models/user';
 import redisClient from '../../index';
-import { ttlResetPassword } from '../../config/config';
+import {
+  ttlResetPassword,
+  redirectUrlPasswordReset,
+} from '../../config/config';
 
 const GetResetPassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
@@ -42,9 +45,7 @@ const GetResetPassword = (req: Request, res: Response) => {
         });
       }
 
-      return res
-        .status(200)
-        .redirect(301, 'https://github.com/NodeRedis/node-redis');
+      return res.status(200).redirect(301, redirectUrlPasswordReset);
     });
   });
 };

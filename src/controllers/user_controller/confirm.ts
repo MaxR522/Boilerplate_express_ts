@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../models/user';
+import { redirectUrlConfirmation } from '../../config/config';
 
 const Confirm = (req: Request, res: Response) => {
   const _email = req.userData.email;
@@ -24,7 +25,7 @@ const Confirm = (req: Request, res: Response) => {
         });
       }
 
-      return res.status(200).redirect(301, 'http://expressjs.com/en/api.html');
+      return res.status(200).redirect(301, redirectUrlConfirmation);
     });
   });
 };
