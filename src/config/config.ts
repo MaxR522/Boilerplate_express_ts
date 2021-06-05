@@ -22,9 +22,12 @@ declare var process: {
     REFRESH_TOKEN_LIMIT: string;
     CONFIRMATION_TOKEN_SECRET: string;
     CONFIRMATION_TOKEN_LIMIT: string;
+    PASSWORD_TOKEN_SECRET: string;
+    PASSWORD_TOKEN_LIMIT: string;
     REDIS_PORT: number;
     REDIS_HOST: string;
     TTL_ACCESS_TOKEN: number;
+    TTL_PASSWORD_RESET: number;
     NODE_ENV: string;
     BASE_URL: string;
   };
@@ -73,13 +76,17 @@ export const refreshTokenSecret =
   process.env.REFRESH_TOKEN_SECRET || 'MyRefreshSecret';
 export const confirmationTokenSecret =
   process.env.CONFIRMATION_TOKEN_SECRET || 'MyConfirmationSecret';
+export const passwordTokenSecret =
+  process.env.PASSWORD_TOKEN_SECRET || 'MyPasswordTokenSecret';
 
 export const accessTokenLimit = process.env.ACCESS_TOKEN_LIMIT || '30m';
 export const refreshTokenLimit = process.env.REFRESH_TOKEN_LIMIT || '30d';
 export const confirmationTokenLimit =
   process.env.CONFIRMATION_TOKEN_LIMIT || '1d';
+export const passwordTokenLimit = process.env.PASSWORD_TOKEN_LIMIT || '1d';
 
 export const redisPort = process.env.REDIS_PORT || 6379;
 export const redisHost = process.env.REDIS_HOST || '127.0.0.1';
 
 export const ttlAccessToken = process.env.TTL_ACCESS_TOKEN || 60;
+export const ttlResetPassword = process.env.TTL_PASSWORD_RESET || 24 * 60;

@@ -1,4 +1,4 @@
-import IUser from '../interfaces/models/user';
+import IUser from '../interfaces/models/user_interface';
 import * as mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
@@ -47,7 +47,8 @@ const UserSchema = new mongoose.Schema(
     passwordResetToken: {
       type: String,
     },
-    passwordResetExpires: Date,
+    allowPasswordReset: Boolean,
+    passwordResetedAt: Date,
   },
   { timestamps: true },
 );

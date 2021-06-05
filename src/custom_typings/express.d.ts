@@ -6,5 +6,6 @@ declare module 'express' {
     accessToken?: string;
     refreshToken?: string;
     confirmationToken?: string;
+    passwordResetToken?: string;
   }
 }

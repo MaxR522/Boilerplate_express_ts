@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../models/user';
-import sendConfirmationEmail from '../../mailers/confirmation';
+import sendConfirmationEmail from '../../mailers/confirmation_mailer';
 import * as jwt from 'jsonwebtoken';
 import {
   confirmationTokenSecret,

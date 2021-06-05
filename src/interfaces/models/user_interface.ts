@@ -23,7 +23,12 @@ interface IUser {
 
   // Password reset
   passwordResetToken: string;
-  passwordResetExpires: Date;
+  allowPasswordReset: boolean;
+  passwordResetedAt: Date;
+
+  // Timestamps
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export default IUser;

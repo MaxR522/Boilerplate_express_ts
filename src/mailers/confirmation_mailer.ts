@@ -20,7 +20,7 @@ const sendConfirmationEmail = (
   transport.sendMail({
     from: 'boilerplate',
     to: email,
-    subject: 'Confirm your email',
+    subject: 'Account confirmation instruction',
     html: `
       <h1>Email Confirmation</h1>
       <h2>Hello ${name}</h2>

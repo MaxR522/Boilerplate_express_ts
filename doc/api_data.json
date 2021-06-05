@@ -62,7 +62,7 @@
         }
       ]
     },
-    "filename": "src/routes/api.ts",
+    "filename": "src/apiDoc/api_routes.ts",
     "groupTitle": "User",
     "name": "GetApiLogout"
   },
@@ -144,12 +144,12 @@
       "examples": [
         {
           "title": "List error",
-          "content": "HTTP/1.1 409 (conflict) account registered with Oauth\n{\n  \"success\": \"false\",\n  \"message\": \"Please login using your social creds\"\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (unauthorized) wrong password or email\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong email or password\"\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
+          "content": "HTTP/1.1 409 (conflict) account registered with Oauth\n{\n  \"success\": \"false\",\n  \"message\": \"Please login using your social creds\"\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (unauthorized) wrong password or email\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong email or password\"\n}\n\nHTTP/1.1 401 (unauthorized) account not confirmed yet\n{\n  \"success\": \"false\",\n  \"message\": \"email not confirmed\"\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
           "type": "json"
         }
       ]
     },
-    "filename": "src/routes/api.ts",
+    "filename": "src/apiDoc/api_routes.ts",
     "groupTitle": "User",
     "name": "PostApiLogin"
   },
@@ -223,7 +223,7 @@
         }
       ]
     },
-    "filename": "src/routes/api.ts",
+    "filename": "src/apiDoc/api_routes.ts",
     "groupTitle": "User",
     "name": "PostApiRefresh_token"
   },
@@ -317,9 +317,83 @@
         }
       ]
     },
-    "filename": "src/routes/api.ts",
+    "filename": "src/apiDoc/api_routes.ts",
     "groupTitle": "User",
     "name": "PostApiRegister"
+  },
+  {
+    "type": "post",
+    "url": "/api/resend_confirmation",
+    "title": "6. Resend confirmation email",
+    "group": "User",
+    "version": "1.0.0",
+    "description": "<p>Resend confirmation token</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>user's email</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"email\": \"mario@gmail.com\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          },
+          {
+            "group": "200",
+            "type": "Number",
+            "optional": false,
+            "field": "data",
+            "description": "<p>user's email</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"A new confirmation email has been sent to: mario@gmail.com\",\n  \"data\": \"mario@gmail.com\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "HTTP/1.1 400 (Unauthorized) Some error random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not registered\n{\n  \"success\": \"false\",\n  \"message\": \"User not registered\"\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_routes.ts",
+    "groupTitle": "User",
+    "name": "PostApiResend_confirmation"
   },
   {
     "type": "post",
@@ -391,7 +465,7 @@
         }
       ]
     },
-    "filename": "src/routes/api.ts",
+    "filename": "src/apiDoc/api_routes.ts",
     "groupTitle": "User",
     "name": "PostApiRevoke"
   }

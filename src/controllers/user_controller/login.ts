@@ -84,6 +84,16 @@ const Login = async (req: Request, res: Response) => {
 
         // Verify in redis db if there is already a refresh token generated
         // Refresh token doesn't change until the user revoke it
+        const userData = {
+          id: user._id,
+          fullname: user.fullname,
+          dateOfBirth: user.dateOfBirth,
+          email: user.email,
+          role: user.role,
+          picture: user.picture,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        };
 
         redisClient.get(user._id.toString(), async (error, data) => {
           if (error) throw error;
@@ -108,7 +118,7 @@ const Login = async (req: Request, res: Response) => {
                 .json({
                   success: 'true',
                   message: 'User logged in successfully',
-                  data: user,
+                  data: userData,
                   tokens: {
                     accessToken,
                     refreshToken,
@@ -129,7 +139,7 @@ const Login = async (req: Request, res: Response) => {
                 .json({
                   success: 'true',
                   message: 'User logged in successfully',
-                  data: user,
+                  data: userData,
                   tokens: {
                     accessToken,
                     refreshToken,

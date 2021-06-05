@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import User from '../../models/user';
-import sendConfirmationEmail from '../../mailers/confirmation';
+import sendConfirmationEmail from '../../mailers/confirmation_mailer';
 import * as jwt from 'jsonwebtoken';
 import {
   confirmationTokenSecret,
@@ -56,6 +56,17 @@ const Register = async (req: Request, res: Response) => {
   try {
     const savedUser = await user.save();
 
+    const userData = {
+      id: savedUser._id,
+      fullname: savedUser.fullname,
+      dateOfBirth: savedUser.dateOfBirth,
+      email: savedUser.email,
+      role: savedUser.role,
+      picture: savedUser.picture,
+      createdAt: savedUser.createdAt,
+      updatedAt: savedUser.updatedAt,
+    };
+
     sendConfirmationEmail(
       savedUser.fullname,
       savedUser.email,
@@ -65,7 +76,7 @@ const Register = async (req: Request, res: Response) => {
     return res.status(201).json({
       success: 'true',
       message: 'register success',
-      data: savedUser,
+      data: userData,
     });
   } catch (error) {
     return res.status(400).json({
