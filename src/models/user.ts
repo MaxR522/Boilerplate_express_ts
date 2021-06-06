@@ -1,5 +1,7 @@
 import IUser from '../interfaces/models/user_interface';
+import * as bcrypt from 'bcrypt';
 import * as mongoose from 'mongoose';
+import * as crypto from 'crypto';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -52,6 +54,37 @@ const UserSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+// Hash user's password before save
+UserSchema.pre<IUser>('save', async function (next) {
+  let user = this;
+
+  // hash email
+  const emailHashed = await crypto
+    .createHash('md5')
+    .update(user.email)
+    .digest('hex');
+
+  // Add user's gravatar in user's picture
+  user.picture = `https://gravatar.com/avatar/${emailHashed}`;
+
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+
+  // generate a salt
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+
+    // hash the password along with our new salt
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+
+      // override the cleartext password with the hashed one
+      user.password = hash;
+      return next();
+    });
+  });
+});
 
 const User = mongoose.model<IUser>('User', UserSchema);
 

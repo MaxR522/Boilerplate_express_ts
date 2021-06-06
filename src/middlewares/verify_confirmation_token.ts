@@ -9,6 +9,7 @@ const verifyConfirmationToken = async (
   next: NextFunction,
 ) => {
   const confirmationToken = req.params.confirmationToken;
+
   jwt.verify(
     confirmationToken,
     confirmationTokenSecret,

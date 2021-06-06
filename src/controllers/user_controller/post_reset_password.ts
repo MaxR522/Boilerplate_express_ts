@@ -7,7 +7,7 @@ import sendPasswordResetMail from '../../mailers/password_reset_mailer';
 const ResetPassword = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
 
-  User.findOne({ email: _email }, (error: any, user: any) => {
+  User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
       return res.status(400).json({
         success: 'false',
@@ -25,12 +25,12 @@ const ResetPassword = (req: Request, res: Response) => {
 
     const payload = { email: _email };
 
-    const passwordResetToken = jwt.sign(payload, passwordTokenSecret, {
+    const passwordResetToken = await jwt.sign(payload, passwordTokenSecret, {
       expiresIn: passwordTokenLimit,
     });
 
     user.passwordResetToken = passwordResetToken;
-    user.save((error: any) => {
+    await user.save((error: any) => {
       if (error) {
         return res.status(400).json({
           success: 'false',

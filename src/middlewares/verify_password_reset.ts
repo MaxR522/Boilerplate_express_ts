@@ -9,6 +9,7 @@ const verifyPasswordResetToken = async (
   next: NextFunction,
 ) => {
   const passwordResetToken = req.params.passwordResetToken;
+
   jwt.verify(
     passwordResetToken,
     passwordTokenSecret,

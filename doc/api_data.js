@@ -62,7 +62,7 @@ define({ "api": [
         }
       ]
     },
-    "filename": "src/apiDoc/api_routes.ts",
+    "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "GetApiLogout"
   },
@@ -135,7 +135,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"User logged in successfully\",\n  \"data\": {\n    \"picture\": \"\",\n    \"role\": \"user\",\n    \"tokens\": [],\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"password\": \"$2b$10$VdfOfQK2RPa3krNIBA0ZEO2z2R2hNY2ik9G4FTOXh9/MS.S2jqexS\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\",\n    \"__v\": 0\n  },\n \"tokens\": {\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjIyNzY1Mzl9.8128o5Mli7wYrGHwyGE8Lrmg7ZnJH48HW_Ag_sSp278\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n  }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"User logged in successfully\",\n  \"data\": {\n    \"picture\": \"\",\n    \"role\": \"user\",\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\",\n  },\n \"tokens\": {\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjIyNzY1Mzl9.8128o5Mli7wYrGHwyGE8Lrmg7ZnJH48HW_Ag_sSp278\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n  }\n}",
           "type": "json"
         }
       ]
@@ -149,7 +149,7 @@ define({ "api": [
         }
       ]
     },
-    "filename": "src/apiDoc/api_routes.ts",
+    "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiLogin"
   },
@@ -223,7 +223,7 @@ define({ "api": [
         }
       ]
     },
-    "filename": "src/apiDoc/api_routes.ts",
+    "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiRefresh_token"
   },
@@ -303,7 +303,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 201 CREATED\n{\n  \"success\": \"true\",\n  \"message\": \"register success\",\n  \"data\": {\n    \"picture\": \"\",\n    \"role\": \"user\",\n    \"tokens\": [],\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"password\": \"$2b$10$VdfOfQK2RPa3krNIBA0ZEO2z2R2hNY2ik9G4FTOXh9/MS.S2jqexS\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\",\n    \"__v\": 0\n  }\n}",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"success\": \"true\",\n  \"message\": \"register success, a confirmation mail was sent into mario@gmail.com,\n  \"data\": {\n    \"picture\": \"https://gravatar.com/avatar/b3e777382401ad75437b74ff9252e5e1\",\n    \"role\": \"user\",\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\"\n  }\n}",
           "type": "json"
         }
       ]
@@ -317,7 +317,7 @@ define({ "api": [
         }
       ]
     },
-    "filename": "src/apiDoc/api_routes.ts",
+    "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiRegister"
   },
@@ -391,7 +391,7 @@ define({ "api": [
         }
       ]
     },
-    "filename": "src/apiDoc/api_routes.ts",
+    "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiResend_confirmation"
   },
@@ -465,7 +465,7 @@ define({ "api": [
         }
       ]
     },
-    "filename": "src/apiDoc/api_routes.ts",
+    "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiRevoke"
   }

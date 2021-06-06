@@ -13,7 +13,7 @@ const generateRefreshToken = async (
   const refreshToken = await jwt.sign(payload, secret, {
     expiresIn: timeLimit,
   });
-  redisClient.get(userId.toString(), async (error, data) => {
+  redisClient.get(userId.toString(), async (error: any, data: any) => {
     if (error) throw error;
 
     redisClient.set(

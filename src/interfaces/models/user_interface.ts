@@ -1,10 +1,12 @@
+import { Document } from 'mongoose';
+
 export interface Tokens {
   kind: string;
   accessToken: string;
   tokenSecret?: string;
 }
 
-interface IUser {
+interface IUser extends Document {
   // basic info
   email: string;
   fullname: string;

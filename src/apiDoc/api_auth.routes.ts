@@ -22,9 +22,9 @@
  *    HTTP/1.1 201 CREATED
  *    {
  *      "success": "true",
- *      "message": "register success",
+ *      "message": "register success, a confirmation mail was sent into mario@gmail.com,
  *      "data": {
- *        "picture": "",
+ *        "picture": "https://gravatar.com/avatar/b3e777382401ad75437b74ff9252e5e1",
  *        "role": "user",
  *        "_id": "60b1e54d0d67fa1a16b4894e",
  *        "fullname": "Mario Randrianomearisoa",

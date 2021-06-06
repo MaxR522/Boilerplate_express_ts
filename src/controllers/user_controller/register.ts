@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import * as bcrypt from 'bcrypt';
 import User from '../../models/user';
 import sendConfirmationEmail from '../../mailers/confirmation_mailer';
 import * as jwt from 'jsonwebtoken';
@@ -26,16 +25,10 @@ const Register = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       success: 'false',
-      message: 'something went wrong',
+      message: 'something went wrong !',
       errors: error,
     });
   }
-
-  // generate salt to hash password
-  const salt = await bcrypt.genSalt(10);
-
-  // now we set user password to hashed password
-  const _hashedPassword = await bcrypt.hash(_password, salt);
 
   // Generate confirmation token
   const confirmationToken = await jwt.sign(
@@ -47,7 +40,7 @@ const Register = async (req: Request, res: Response) => {
   const user = new User({
     fullname: _fullname,
     email: _email,
-    password: _hashedPassword,
+    password: _password,
     dateOfBirth: _dateOfBirth,
     confirmationToken: confirmationToken,
     confirmationSentAt: new Date(),
@@ -75,8 +68,8 @@ const Register = async (req: Request, res: Response) => {
 
     return res.status(201).json({
       success: 'true',
-      message: 'register success',
-      data: userData,
+      message: `register success, a confirmation mail was sent into ${_email} `,
+      data: savedUser,
     });
   } catch (error) {
     return res.status(400).json({

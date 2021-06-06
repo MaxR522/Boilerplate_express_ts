@@ -8,11 +8,13 @@ const verifyRefreshToken = (
   res: Response,
   next: NextFunction,
 ) => {
-  try {
-    const refreshToken = req.body.token;
+  const refreshToken = req.body.token;
 
-    // Verify refresh token validity
-    jwt.verify(refreshToken, refreshTokenSecret, (error: any, decoded: any) => {
+  // Verify refresh token validity
+  jwt.verify(
+    refreshToken,
+    refreshTokenSecret,
+    async (error: any, decoded: any) => {
       if (error) {
         return res.status(401).json({
           success: 'false',
@@ -22,7 +24,7 @@ const verifyRefreshToken = (
       }
 
       // Compare refresh_token with the stored in redis
-      redisClient.get(decoded.sub.toString(), (error, data) => {
+      await redisClient.get(decoded.sub.toString(), (error, data) => {
         if (error) {
           return res.status(400).json({
             success: 'false',
@@ -51,14 +53,8 @@ const verifyRefreshToken = (
         req.refreshToken = refreshToken;
         next();
       });
-    });
-  } catch (error) {
-    return res.status(401).json({
-      success: 'false',
-      message: 'You are not allowed to do this action',
-      errors: error,
-    });
-  }
+    },
+  );
 };
 
 export default verifyRefreshToken;
