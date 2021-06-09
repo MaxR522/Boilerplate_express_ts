@@ -26,6 +26,13 @@ const ResendConfirmation = (req: Request, res: Response) => {
       });
     }
 
+    if (user.confirmedAt) {
+      return res.status(409).json({
+        success: 'false',
+        message: 'Your account is already confirmed',
+      });
+    }
+
     if (user) {
       const newConfirmationToken = await jwt.sign(
         { email: _email },
