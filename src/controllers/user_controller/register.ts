@@ -50,7 +50,7 @@ const Register = async (req: Request, res: Response) => {
     const savedUser = await user.save();
 
     const userData = {
-      id: savedUser._id,
+      _id: savedUser._id,
       fullname: savedUser.fullname,
       dateOfBirth: savedUser.dateOfBirth,
       email: savedUser.email,
@@ -69,7 +69,7 @@ const Register = async (req: Request, res: Response) => {
     return res.status(201).json({
       success: 'true',
       message: `register success, a confirmation mail was sent into ${_email} `,
-      data: savedUser,
+      data: userData,
     });
   } catch (error) {
     return res.status(400).json({

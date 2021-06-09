@@ -85,7 +85,7 @@ const Login = async (req: Request, res: Response) => {
         // Verify in redis db if there is already a refresh token generated
         // Refresh token doesn't change until the user revoke it
         const userData = {
-          id: user._id,
+          _id: user._id,
           fullname: user.fullname,
           dateOfBirth: user.dateOfBirth,
           email: user.email,

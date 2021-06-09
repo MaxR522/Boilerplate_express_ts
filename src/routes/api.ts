@@ -10,6 +10,7 @@ import Confirm from '../controllers/user_controller/confirm';
 import ResendConfirmation from '../controllers/user_controller/resend_confirmation';
 import ResetPassword from '../controllers/user_controller/post_reset_password';
 import GetResetPassword from '../controllers/user_controller/get_reset_password';
+import ChangeResetedPassword from '../controllers/user_controller/change_reset_password';
 
 // Middlewares
 import authValidationFor from '../middlewares/auth_field_validators';
@@ -68,5 +69,7 @@ route.get(
   verifyPasswordResetToken,
   GetResetPassword,
 );
+
+route.post('/reset_password/change_password', ChangeResetedPassword);
 
 export default route;

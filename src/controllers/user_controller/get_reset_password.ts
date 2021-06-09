@@ -34,7 +34,7 @@ const GetResetPassword = (req: Request, res: Response) => {
     );
 
     user.passwordResetToken = '';
-    user.passwordResetedAt = new Date();
+    user.passwordResetAt = new Date();
 
     user.save((error: any) => {
       if (error) {
@@ -45,7 +45,14 @@ const GetResetPassword = (req: Request, res: Response) => {
         });
       }
 
-      return res.status(200).redirect(301, redirectUrlPasswordReset);
+      // Add inside query param the email of the user to find the current user.
+      // the client will send it back as param when modify password
+      return res
+        .status(200)
+        .redirect(
+          301,
+          `${redirectUrlPasswordReset}?allow_password_reset=true&email=${_email}`,
+        );
     });
   });
 };

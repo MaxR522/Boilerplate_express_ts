@@ -26,7 +26,7 @@ interface IUser extends Document {
   // Password reset
   passwordResetToken: string;
   allowPasswordReset: boolean;
-  passwordResetedAt: Date;
+  passwordResetAt: Date;
 
   // Timestamps
   createdAt: Date;
