@@ -22,7 +22,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({
         success: 'false',
-        message: 'User not registered',
+        message: 'user not found, maybe not registered',
       });
     }
 
@@ -56,7 +56,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
         return res.status(200).json({
           success: 'true',
           message: `A new confirmation email has been sent to: ${_email}`,
-          data: _email,
+          data: { email: _email },
         });
       });
     }

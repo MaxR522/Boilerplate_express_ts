@@ -24,7 +24,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
       return res.status(403).json({
         success: 'false',
         message:
-          'You are not allowed to perform this action, try by making a new request',
+          'You are not allowed to perform this action, try to make new request again',
       });
     }
 

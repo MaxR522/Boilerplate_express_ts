@@ -311,7 +311,7 @@
  *    {
  *      "success": "true",
  *      "message": "A new confirmation email has been sent to: mario@gmail.com",
- *      "data": "mario@gmail.com"
+ *      "data": {email: "mario@gmail.com"}
  *    }
  * @apiErrorExample {json} List error
  *    HTTP/1.1 400 (Unauthorized) Some error random error, specified inside errors property
@@ -324,7 +324,13 @@
  *    HTTP/1.1 404 (not found) user not registered
  *    {
  *      "success": "false",
- *      "message": "User not registered"
+ *      "message": "user not found, maybe not registered"
+ *    }
+ *
+ *    HTTP/1.1 409 (conflict) account already confirmed
+ *    {
+ *      "success": "false",
+ *      "message": "Your account is already confirmed"
  *    }
  *
  *    HTTP/1.1 422 (unprocessable entity) Missing or wrong param format
@@ -332,6 +338,104 @@
  *      "success": "false",
  *      "message": "Params error"
  *      "errors": []
+ *    }
+ *
+ */
+
+/**
+ * @api {post} /api/reset_password 7. Reset password
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription Request to reset user's password in case of forgotten password by example
+ *
+ * @apiParam {String} email User email
+ * @apiParamExample {json} Input
+ *    {
+ *      "email": "mario@gmail.com"
+ *    }
+ *
+ * @apiSuccess (200) {String} success Status of the request
+ * @apiSuccess (200) {String} message message response
+ * @apiSuccess (200) {Object} data User's information
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "success": "true",
+ *      "message": "A password reset instruction have been sent to the email: mario@gmail.com",
+ *      "data": {email: "mario@gmail.com"}
+ *    }
+ * @apiErrorExample {json} List error
+ *
+ *    HTTP/1.1 400 (bad request) some random error, specified inside errors property
+ *    {
+ *      "success": "false",
+ *      "message": "Something went wrong"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 422 (unprocessable entity) Missing or wrong param format
+ *    {
+ *      "success": "false",
+ *      "message": "Params error"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 404 (not found) user not found
+ *    {
+ *      "success": "false",
+ *      "message": "user not found, maybe not registered"
+ *    }
+ *
+ */
+
+/**
+ * @api {post} /api/reset_password/change_password 8. change reset password
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription Request to change password after the user request changment
+ *
+ * @apiParam {String} email User email
+ * @apiParam {String} newPassword User new password
+ * @apiParamExample {json} Input
+ *    {
+ *      "email": "mario@gmail.com",
+ *      "newPassword": "MaxR522"
+ *    }
+ *
+ * @apiSuccess (200) {String} success Status of the request
+ * @apiSuccess (200) {String} message message response
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "success": "true",
+ *      "message": "Your password was changed successfully"
+ *    }
+ * @apiErrorExample {json} List error
+ *
+ *    HTTP/1.1 400 (bad request) some random error, specified inside errors property
+ *    {
+ *      "success": "false",
+ *      "message": "Something went wrong"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 422 (unprocessable entity) Missing or wrong param format
+ *    {
+ *      "success": "false",
+ *      "message": "Params error"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 403 (forbiden) time to allow password change expired
+ *    {
+ *      "success": "false",
+ *      "message": "You are not allowed to perform this action, try to make new request again"
+ *    }
+ *
+ *    HTTP/1.1 404 (not found) user not found
+ *    {
+ *      "success": "false",
+ *      "message": "user not found, maybe not registered"
  *    }
  *
  */

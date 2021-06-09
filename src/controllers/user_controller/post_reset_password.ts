@@ -44,7 +44,7 @@ const ResetPassword = (req: Request, res: Response) => {
       return res.status(200).json({
         success: 'true',
         message: `A password reset instruction have been sent to the email: ${_email}`,
-        data: _email,
+        data: { email: _email },
       });
     });
   });

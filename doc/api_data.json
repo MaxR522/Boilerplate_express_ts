@@ -377,7 +377,7 @@
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"A new confirmation email has been sent to: mario@gmail.com\",\n  \"data\": \"mario@gmail.com\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"A new confirmation email has been sent to: mario@gmail.com\",\n  \"data\": {email: \"mario@gmail.com\"}\n}",
           "type": "json"
         }
       ]
@@ -386,7 +386,7 @@
       "examples": [
         {
           "title": "List error",
-          "content": "HTTP/1.1 400 (Unauthorized) Some error random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not registered\n{\n  \"success\": \"false\",\n  \"message\": \"User not registered\"\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}",
+          "content": "HTTP/1.1 400 (Unauthorized) Some error random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not registered\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}\n\nHTTP/1.1 409 (conflict) account already confirmed\n{\n  \"success\": \"false\",\n  \"message\": \"Your account is already confirmed\"\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}",
           "type": "json"
         }
       ]
@@ -394,6 +394,154 @@
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiResend_confirmation"
+  },
+  {
+    "type": "post",
+    "url": "/api/reset_password",
+    "title": "7. Reset password",
+    "group": "User",
+    "version": "1.0.0",
+    "description": "<p>Request to reset user's password in case of forgotten password by example</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>User email</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"email\": \"mario@gmail.com\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          },
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>User's information</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"A password reset instruction have been sent to the email: mario@gmail.com\",\n  \"data\": {email: \"mario@gmail.com\"}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_auth.routes.ts",
+    "groupTitle": "User",
+    "name": "PostApiReset_password"
+  },
+  {
+    "type": "post",
+    "url": "/api/reset_password/change_password",
+    "title": "8. change reset password",
+    "group": "User",
+    "version": "1.0.0",
+    "description": "<p>Request to change password after the user request changment</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>User email</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "newPassword",
+            "description": "<p>User new password</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"email\": \"mario@gmail.com\",\n  \"newPassword\": \"MaxR522\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"Your password was changed successfully\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 403 (forbiden) time to allow password change expired\n{\n  \"success\": \"false\",\n  \"message\": \"You are not allowed to perform this action, try to make new request again\"\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_auth.routes.ts",
+    "groupTitle": "User",
+    "name": "PostApiReset_passwordChange_password"
   },
   {
     "type": "post",
