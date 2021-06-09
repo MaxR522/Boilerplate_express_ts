@@ -70,6 +70,11 @@ route.get(
   GetResetPassword,
 );
 
-route.post('/reset_password/change_password', ChangeResetedPassword);
+route.post(
+  '/reset_password/change_password',
+  authValidationFor('password_reset'),
+  checkValidationResult,
+  ChangeResetedPassword,
+);
 
 export default route;
