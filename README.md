@@ -165,6 +165,10 @@ yarn lint
 - **passport** for Oauth authentication
 - **express**
 - **axios** to perform some requests
+- **mocha** for testing
+- **chai & chai-hhtp** for testing asssertion
+- **apiDoc** api documentation
+- **nodemon**
 
 ## Author
 
