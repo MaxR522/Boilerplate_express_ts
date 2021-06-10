@@ -1,0 +1,193 @@
+﻿# Node Js, Express Typescript boilerplate
+
+>this readme contain the prerequisite, how to run it, folder structure, features and dependencies used inside the project
+
+<a href="https://nodejs.org/"><img width="128" alt="Node.js logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/128px-Node.js_logo.svg.png"></a><a href="https://expressjs.com/"><img width="256" alt="Expressjs" src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png"></a><a  href="https://www.typescriptlang.org/"><img width="128" alt="Typescript logo 2020" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/128px-Typescript_logo_2020.svg.png"></a>
+
+
+## Description
+
+This is a small project with full authentication system. I build this boilerplate to start all my new project from this and not from 0.
+
+## Prerequisite
+- node js version >= 10.xx.x 
+- express version >= 4.xx.x
+- typescript version >= 4.x.x
+
+## Run Locally
+
+  
+> We assume that you have node, npm, yarn and typescript installed globally
+
+Clone the project
+
+  
+
+```bash
+
+git clone https://github.com/MaxR522/Boilerplate_express_ts.git
+
+```
+
+  
+
+Go to the project directory
+
+  
+
+```bash
+
+cd Boilerplate_express_ts
+
+```
+
+  
+
+Install dependencies
+
+  
+
+```bash
+
+yarn install
+
+```
+
+  
+
+Start the dev server
+
+  
+
+```bash
+
+yarn dev
+
+```
+
+To run tests, run the following command
+
+  
+
+```bash
+
+yarn test
+
+```
+
+To build, run the following command
+
+  
+
+```bash
+
+yarn build
+
+```
+
+To start server
+
+  
+
+```bash
+
+yarn start
+
+```
+
+To generate doc, run the following command
+
+  
+
+```bash
+
+
+yarn doc
+
+```
+
+To lint, run the following command
+
+  
+
+```bash
+
+yarn lint
+
+```
+
+## Basic folder structure
+
+```
+├── doc (generated doc by apiDoc)
+├── src (all source file)
+│   └── apiDoc (all apiDoc for routes)
+│   └── config (all config files and variables from .env)
+│   └── controllers 
+│	└── post_controller
+│	└── user_controller
+│   └── custom_typings (adding custom types)
+│   └── interfaces (all the interfaces)
+│   └── mailers
+│   └── middlewares
+│   └── models
+│   └── routes
+│   └── utils (utils method)
+│   └── index.ts
+├── tests
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
+├──  apidoc.json
+├──  LICENSE.md
+├──  package.json
+├──  tsconfig.json
+└──  yarn.lock
+
+
+```
+
+
+## Features
+1 - **User authentication system**: 
+- Register with confirmation email
+- Login generate access and refresh token
+- Logout
+- Generating new access-token
+- Revoke refresh-token
+- Reset password
+- Change password
+- Connection using Google account (coming soon)
+- Connection using Facebook account  (coming soon)
+
+2 - **CRUD User**: (coming soon)
+- Modify user's information (coming soon)
+- Delete user's account (coming soon)
+
+3 - **CRUD Post** (for example purposes only) (coming soon):
+- Create Post, only logged in user 
+- Read Post, show posts (all, one or specified query)
+- Update Post, only the user who is the author of Post
+- Delete Post, only the user who is the author of Post
+
+## Some dependencies used with explanation
+
+- **bcrypt** to encrypt password
+- **cookie-parser** to parse cookie
+- **cors** to block request from unwanted domain
+- **express-validator**  validation for param, header or cookie
+- **jsonwebtoken** the authentication system is based on JWT token
+- **mongoose** mongoDB database
+- **redis** for storing data with expiry time to live
+- **nodemailer** for mailing
+- **passport** for Oauth authentication
+- **express**
+- **axios** to perform some requests
+
+
+
+
+
+
