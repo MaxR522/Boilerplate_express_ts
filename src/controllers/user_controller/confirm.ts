@@ -8,7 +8,7 @@ const Confirm = (req: Request, res: Response) => {
     if (error) {
       return res.status(400).json({
         success: 'false',
-        message: 'something ent wrong !',
+        message: 'something went wrong !',
         errors: error,
       });
     }

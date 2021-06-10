@@ -48,7 +48,6 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
       await user.save((error: any) => {
         if (error) {
-          console.log(error);
           return res.status(400).json({
             success: 'false',
             message: 'Something went wrong #2',

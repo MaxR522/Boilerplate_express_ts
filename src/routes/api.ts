@@ -11,6 +11,7 @@ import ResendConfirmation from '../controllers/user_controller/resend_confirmati
 import ResetPassword from '../controllers/user_controller/post_reset_password';
 import GetResetPassword from '../controllers/user_controller/get_reset_password';
 import ChangeResetedPassword from '../controllers/user_controller/change_reset_password';
+import ChangePassword from '../controllers/user_controller/change_pasword';
 
 // Middlewares
 import authValidationFor from '../middlewares/auth_field_validators';
@@ -51,14 +52,14 @@ route.post('/revoke', verifyRefreshToken, RevokeRefreshToken);
 route.get('/confirm/:confirmationToken', verifyConfirmationToken, Confirm);
 
 route.post(
-  '/resend_confirmation',
+  '/confirm/send',
   authValidationFor('email_only'),
   checkValidationResult,
   ResendConfirmation,
 );
 
 route.post(
-  '/reset_password',
+  '/password/reset',
   authValidationFor('email_only'),
   checkValidationResult,
   ResetPassword,
@@ -71,10 +72,19 @@ route.get(
 );
 
 route.post(
-  '/reset_password/change_password',
+  '/password/change',
   authValidationFor('password_reset'),
   checkValidationResult,
   ChangeResetedPassword,
+);
+
+route.post(
+  '/password/modify',
+  authValidationFor('modify_password'),
+  checkValidationResult,
+  verifyAccessToken,
+  blacklistedAccessCheck,
+  ChangePassword,
 );
 
 export default route;

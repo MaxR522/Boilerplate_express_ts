@@ -292,7 +292,7 @@
  */
 
 /**
- * @api {post} /api/resend_confirmation 6. Resend confirmation email
+ * @api {post} /api/confirm/send 6. Resend confirmation email
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Resend confirmation token
@@ -343,7 +343,7 @@
  */
 
 /**
- * @api {post} /api/reset_password 7. Reset password
+ * @api {post} /api/password/reset 7. Reset password
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Request to reset user's password in case of forgotten password by example
@@ -389,7 +389,7 @@
  */
 
 /**
- * @api {post} /api/reset_password/change_password 8. change reset password
+ * @api {post} /api/password/change 8. change reset password
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Request to change password after the user request changment
@@ -436,6 +436,66 @@
  *    {
  *      "success": "false",
  *      "message": "user not found, maybe not registered"
+ *    }
+ *
+ */
+
+/**
+ * @api {post} /api/password/modify 9. modify password
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription Request to modify password after login
+ *
+ * @apiParam {String} email User's email
+ * @apiParam {String} password current User's password
+ * @apiParam {String} newPassword User new password
+ * @apiParamExample {json} Input
+ *    {
+ *      "email": "mario@gmail.com",
+ *      "password": "MaxR522",
+ *      "newPassword": "Mario22"
+ *    }
+ *
+ * @apiSuccess (200) {String} success Status of the request
+ * @apiSuccess (200) {String} message message response
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "success": "true",
+ *      "message": "Your password was changed successfully"
+ *    }
+ * @apiErrorExample {json} List error
+ *
+ *    HTTP/1.1 400 (bad request) some random error, specified inside errors property
+ *    {
+ *      "success": "false",
+ *      "message": "Something went wrong"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 422 (unprocessable entity) Missing or wrong param format
+ *    {
+ *      "success": "false",
+ *      "message": "Params error"
+ *      "errors": []
+ *    }
+ *
+ *    HTTP/1.1 403 (forbiden) wrong current password
+ *    {
+ *      "success": "false",
+ *      "message": "wrong password"
+ *    }
+ *
+ *    HTTP/1.1 404 (not found) user not found
+ *    {
+ *      "success": "false",
+ *      "message": "user not found, maybe not registered"
+ *    }
+ *
+ *     HTTP/1.1 401 (Unauthorized) logged out (access token blacklisted)
+ *    {
+ *      "success": "false",
+ *      "message": "you are logged out, please login again"
  *    }
  *
  */

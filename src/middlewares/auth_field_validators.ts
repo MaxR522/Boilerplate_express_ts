@@ -44,15 +44,36 @@ const authValidationFor = (route: string) => {
       return [
         body('email', 'email cannot be blank').notEmpty(),
         body('email', 'Invalid email').isEmail(),
-        body('newPassword', 'password cannot be blank').notEmpty(),
-        body('newPassword', 'password is too short, at least 6 chars').isLength(
-          {
-            min: 6,
-          },
-        ),
+        body('newPassword', 'newPassword cannot be blank').notEmpty(),
         body(
           'newPassword',
-          'password must contain digit, lower case and upper case letter',
+          'newPassword is too short, at least 6 chars',
+        ).isLength({
+          min: 6,
+        }),
+        body(
+          'newPassword',
+          'newPassword must contain digit, lower case and upper case letter',
+        ).custom((value: string) => {
+          const passwordRgxp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
+          return passwordRgxp.test(value);
+        }),
+      ];
+
+    case 'modify_password':
+      return [
+        body('email', 'email cannot be blank').notEmpty(),
+        body('password', 'password cannot be blank').notEmpty(),
+        body('newPassword', 'newPassword cannot be blank').notEmpty(),
+        body(
+          'newPassword',
+          'newPassword is too short, at least 6 chars',
+        ).isLength({
+          min: 6,
+        }),
+        body(
+          'newPassword',
+          'newPassword must contain digit, lower case and upper case letter',
         ).custom((value: string) => {
           const passwordRgxp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
           return passwordRgxp.test(value);
