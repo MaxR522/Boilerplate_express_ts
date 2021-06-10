@@ -8,7 +8,7 @@ const verifyRefreshToken = (
   res: Response,
   next: NextFunction,
 ) => {
-  const refreshToken = req.body.token;
+  const refreshToken = req.cookies.refresh_token;
 
   // Verify refresh token validity
   jwt.verify(

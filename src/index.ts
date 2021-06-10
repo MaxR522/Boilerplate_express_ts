@@ -9,6 +9,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as redis from 'redis';
 import * as cors from 'cors';
+import * as cookieParser from 'cookie-parser';
 import {
   mongooseConfig,
   port,
@@ -31,6 +32,9 @@ export const app = express();
 // Body parser
 app.use(express.json({ limit: maxUploadLimit }));
 app.use(express.urlencoded({ extended: true, limit: maxUploadLimit }));
+
+// Cookie parser
+app.use(cookieParser());
 
 // cross-origin
 app.use(cors(corsOption));

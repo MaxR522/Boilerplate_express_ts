@@ -107,45 +107,39 @@ const Login = async (req: Request, res: Response) => {
               refreshTokenLimit,
             );
 
-            return (
-              res
-                .status(200)
-                // .cookie('refresh_token', refreshToken, {
-                //   expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
-                //   secure: false, // set to true if your using https
-                //   httpOnly: true,
-                // })
-                .json({
-                  success: 'true',
-                  message: 'User logged in successfully',
-                  data: userData,
-                  tokens: {
-                    accessToken,
-                    refreshToken,
-                  },
-                })
-            );
+            return res
+              .status(200)
+              .cookie('refresh_token', refreshToken, {
+                expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
+                secure: false, // set to true if your using https
+                httpOnly: true,
+              })
+              .json({
+                success: 'true',
+                message: 'User logged in successfully',
+                data: userData,
+                tokens: {
+                  accessToken,
+                },
+              });
           } else if (JSON.parse(data).token) {
             const refreshToken = await JSON.parse(data).token;
 
-            return (
-              res
-                .status(200)
-                // .cookie('refresh_token', refreshToken, {
-                //   expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
-                //   secure: false, // set to true if your using https
-                //   httpOnly: true,
-                // })
-                .json({
-                  success: 'true',
-                  message: 'User logged in successfully',
-                  data: userData,
-                  tokens: {
-                    accessToken,
-                    refreshToken,
-                  },
-                })
-            );
+            return res
+              .status(200)
+              .cookie('refresh_token', refreshToken, {
+                expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
+                secure: false, // set to true if your using https
+                httpOnly: true,
+              })
+              .json({
+                success: 'true',
+                message: 'User logged in successfully',
+                data: userData,
+                tokens: {
+                  accessToken,
+                },
+              });
           }
         });
       },

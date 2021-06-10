@@ -67,6 +67,114 @@
     "name": "GetApiLogout"
   },
   {
+    "type": "get",
+    "url": "/api/refresh-token",
+    "title": "3. Refresh token",
+    "group": "User",
+    "version": "1.0.0",
+    "description": "<p>Generate new access-token, cookie with name &quot;refresh_token&quot; is needed</p>",
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "accessToken",
+            "description": "<p>new generated access token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"new tokens generated\",\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc1NzY4LCJleHAiOjE2MjIyNzc1Njh9.Id4cqo3nGhYq3oFQFGXeB-QgCj4bInT4MykovqwSL_0\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "HTTP/1.1 401 (Unauthorized) Some error random error during jwt validation, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Logged out, try to login\"\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not the same that the stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong token, please login\"\n}\n\nHTTP/1.1 401 (Unauthorized) User not registered\n{\n  \"success\": \"false\",\n  \"message\": \"User not registered\"\n}\n\n HTTP/1.1 422 (unprocessable entity) Missing cookie\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_auth.routes.ts",
+    "groupTitle": "User",
+    "name": "GetApiRefreshToken"
+  },
+  {
+    "type": "get",
+    "url": "/api/revoke-token",
+    "title": "5. Revoke refresh token",
+    "group": "User",
+    "version": "1.0.0",
+    "description": "<p>Make refresh token invalid, cookie with name &quot;refresh_token&quot; is needed</p>",
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          },
+          {
+            "group": "200",
+            "type": "Number",
+            "optional": false,
+            "field": "data",
+            "description": "<p>redis response after successfuly delete refresh token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"Refresh token revoked successfully\",\n  \"data\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "HTTP/1.1 401 (Unauthorized) Some error random error during jwt validation, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Logged out, try to login\"\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not the same that the stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong token, please login\"\n}\n\n  HTTP/1.1 422 (unprocessable entity) Missing cookie\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_auth.routes.ts",
+    "groupTitle": "User",
+    "name": "GetApiRevokeToken"
+  },
+  {
     "type": "post",
     "url": "/api/confirm/send",
     "title": "6. Resend confirmation email",
@@ -202,18 +310,19 @@
             "type": "Object",
             "optional": false,
             "field": "tokens",
-            "description": "<p>object of generated tokens (access_token and refresh token)</p>"
+            "description": "<p>object of generated tokens (access_token)</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"User logged in successfully\",\n  \"data\": {\n    \"picture\": \"\",\n    \"role\": \"user\",\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\",\n  },\n \"tokens\": {\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjIyNzY1Mzl9.8128o5Mli7wYrGHwyGE8Lrmg7ZnJH48HW_Ag_sSp278\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n  }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"User logged in successfully\",\n  \"data\": {\n    \"picture\": \"\",\n    \"role\": \"user\",\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\",\n  },\n \"tokens\": {\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjIyNzY1Mzl9.8128o5Mli7wYrGHwyGE8Lrmg7ZnJH48HW_Ag_sSp278\"\n  }\n}",
           "type": "json"
         }
       ]
     },
+    "description": "<p>After login success, a HttpOnly cookie with name &quot;refresh_token&quot; is generated</p>",
     "error": {
       "examples": [
         {
@@ -458,80 +567,6 @@
   },
   {
     "type": "post",
-    "url": "/api/refresh_token",
-    "title": "3. Refresh token",
-    "group": "User",
-    "version": "1.0.0",
-    "description": "<p>Generate new access-token when the old access-token expired</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "token",
-            "description": "<p>refresh token</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Input",
-          "content": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "success",
-            "description": "<p>Status of the request</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>message response</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "accessToken",
-            "description": "<p>new generated access token</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"new tokens generated\",\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc1NzY4LCJleHAiOjE2MjIyNzc1Njh9.Id4cqo3nGhYq3oFQFGXeB-QgCj4bInT4MykovqwSL_0\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "List error",
-          "content": "HTTP/1.1 401 (Unauthorized) Some error random error during jwt validation, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Logged out, try to login\"\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not the same that the stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong token, please login\"\n}\n\nHTTP/1.1 401 (Unauthorized) User not registered\n{\n  \"success\": \"false\",\n  \"message\": \"User not registered\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
-    "name": "PostApiRefresh_token"
-  },
-  {
-    "type": "post",
     "url": "/api/register",
     "title": "1. Register",
     "group": "User",
@@ -606,7 +641,7 @@
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 201 CREATED\n{\n  \"success\": \"true\",\n  \"message\": \"register success, a confirmation mail was sent into mario@gmail.com,\n  \"data\": {\n    \"picture\": \"https://gravatar.com/avatar/b3e777382401ad75437b74ff9252e5e1\",\n    \"role\": \"user\",\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\"\n  }\n}",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"success\": \"true\",\n  \"message\": \"register success, a confirmation mail was sent into mario@gmail.com\",\n  \"data\": {\n    \"picture\": \"https://gravatar.com/avatar/b3e777382401ad75437b74ff9252e5e1\",\n    \"role\": \"user\",\n    \"_id\": \"60b1e54d0d67fa1a16b4894e\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"email\": \"mario@gmail.com\",\n    \"dateOfBirth\": \"1999-04-29T21:00:00.000Z\",\n    \"createdAt\": \"2021-05-29T06:55:09.554Z\",\n    \"updatedAt\": \"2021-05-29T06:55:09.554Z\"\n  }\n}",
           "type": "json"
         }
       ]
@@ -623,79 +658,5 @@
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
     "name": "PostApiRegister"
-  },
-  {
-    "type": "post",
-    "url": "/api/revoke",
-    "title": "5. Revoke refresh token",
-    "group": "User",
-    "version": "1.0.0",
-    "description": "<p>Make refresh token invalid</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "token",
-            "description": "<p>refresh token</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Input",
-          "content": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "success",
-            "description": "<p>Status of the request</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>message response</p>"
-          },
-          {
-            "group": "200",
-            "type": "Number",
-            "optional": false,
-            "field": "data",
-            "description": "<p>redis response after successfuly delete refresh token</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"Refresh token revoked successfully\",\n  \"data\": 1\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "List error",
-          "content": "HTTP/1.1 401 (Unauthorized) Some error random error during jwt validation, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Logged out, try to login\"\n}\n\nHTTP/1.1 401 (Unauthorized) Refresh token not the same that the stored inside redis database\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong token, please login\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
-    "name": "PostApiRevoke"
   }
 ]

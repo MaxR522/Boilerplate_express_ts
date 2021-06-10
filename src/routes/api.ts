@@ -37,17 +37,32 @@ route.post(
 
 route.post('/login', authValidationFor('login'), checkValidationResult, Login);
 
-route.post('/refresh_token', verifyRefreshToken, checkUser, NewToken);
+route.get(
+  '/refresh-token',
+  authValidationFor('refresh-token'),
+  checkValidationResult,
+  verifyRefreshToken,
+  checkUser,
+  NewToken,
+);
 
 route.get(
   '/logout',
+  authValidationFor('logout'),
+  checkValidationResult,
   verifyAccessToken,
   checkUser,
   blacklistedAccessCheck,
   Logout,
 );
 
-route.post('/revoke', verifyRefreshToken, RevokeRefreshToken);
+route.get(
+  '/revoke-token',
+  authValidationFor('refresh-token'),
+  checkValidationResult,
+  verifyRefreshToken,
+  RevokeRefreshToken,
+);
 
 route.get('/confirm/:confirmationToken', verifyConfirmationToken, Confirm);
 

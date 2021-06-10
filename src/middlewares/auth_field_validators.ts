@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, cookie, header, param } from 'express-validator';
 
 const authValidationFor = (route: string) => {
   switch (route) {
@@ -78,6 +78,22 @@ const authValidationFor = (route: string) => {
           const passwordRgxp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
           return passwordRgxp.test(value);
         }),
+      ];
+
+    case 'refresh-token':
+      return [
+        cookie(
+          'refresh_token',
+          'refresh_token cookie must be provided',
+        ).notEmpty(),
+      ];
+
+    case 'logout':
+      return [
+        header(
+          'authorization',
+          'Authorization header must be provided',
+        ).notEmpty(),
       ];
 
     default:

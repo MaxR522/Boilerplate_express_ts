@@ -22,7 +22,7 @@
  *    HTTP/1.1 201 CREATED
  *    {
  *      "success": "true",
- *      "message": "register success, a confirmation mail was sent into mario@gmail.com,
+ *      "message": "register success, a confirmation mail was sent into mario@gmail.com",
  *      "data": {
  *        "picture": "https://gravatar.com/avatar/b3e777382401ad75437b74ff9252e5e1",
  *        "role": "user",
@@ -73,7 +73,8 @@
  * @apiSuccess (200) {String} success Status of the request
  * @apiSuccess (200) {String} message message response
  * @apiSuccess (200) {Object} data User's information saved inside database
- * @apiSuccess (200) {Object} tokens object of generated tokens (access_token and refresh token)
+ * @apiSuccess (200) {Object} tokens object of generated tokens (access_token)
+ * @apiDescription After login success, a HttpOnly cookie with name "refresh_token" is generated
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
@@ -90,8 +91,7 @@
  *        "updatedAt": "2021-05-29T06:55:09.554Z",
  *      },
  *     "tokens": {
- *        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjIyNzY1Mzl9.8128o5Mli7wYrGHwyGE8Lrmg7ZnJH48HW_Ag_sSp278",
- *        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk"
+ *        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjIyNzY1Mzl9.8128o5Mli7wYrGHwyGE8Lrmg7ZnJH48HW_Ag_sSp278"
  *      }
  *    }
  * @apiErrorExample {json} List error
@@ -136,16 +136,10 @@
  */
 
 /**
- * @api {post} /api/refresh_token 3. Refresh token
+ * @api {get} /api/refresh-token 3. Refresh token
  * @apiGroup User
  * @apiVersion 1.0.0
- * @apiDescription Generate new access-token when the old access-token expired
- *
- * @apiParam {String} token refresh token
- * @apiParamExample {json} Input
- *    {
- *      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk"
- *    }
+ * @apiDescription Generate new access-token, cookie with name "refresh_token" is needed
  *
  * @apiSuccess (200) {String} success Status of the request
  * @apiSuccess (200) {String} message message response
@@ -188,6 +182,13 @@
  *    {
  *      "success": "false",
  *      "message": "User not registered"
+ *    }
+ *
+ *     HTTP/1.1 422 (unprocessable entity) Missing cookie
+ *    {
+ *      "success": "false",
+ *      "message": "Params error"
+ *      "errors": []
  *    }
  *
  */
@@ -241,16 +242,10 @@
  */
 
 /**
- * @api {post} /api/revoke 5. Revoke refresh token
+ * @api {get} /api/revoke-token 5. Revoke refresh token
  * @apiGroup User
  * @apiVersion 1.0.0
- * @apiDescription Make refresh token invalid
- *
- * @apiParam {String} token refresh token
- * @apiParamExample {json} Input
- *    {
- *      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk"
- *    }
+ * @apiDescription Make refresh token invalid, cookie with name "refresh_token" is needed
  *
  * @apiSuccess (200) {String} success Status of the request
  * @apiSuccess (200) {String} message message response
@@ -287,6 +282,13 @@
  *    {
  *      "success": "false",
  *      "message": "Wrong token, please login"
+ *    }
+ *
+ *      HTTP/1.1 422 (unprocessable entity) Missing cookie
+ *    {
+ *      "success": "false",
+ *      "message": "Params error"
+ *      "errors": []
  *    }
  *
  */
