@@ -2,6 +2,7 @@ import 'chai-http';
 import * as chai from 'chai';
 require('dotenv').config();
 import { app } from '../../../src/index';
+import User from '../../../src/models/user';
 
 import 'express';
 
@@ -20,6 +21,22 @@ const should = chai.should();
 chai.use(require('chai-http'));
 
 describe('Test POST /api/login', () => {
+  before((done) => {
+    const user = new User({
+      fullname: 'mocha test',
+      dateOfBirth: '04-30-1999',
+      email: 'test@test.com',
+      password: 'mochaChai123',
+      confirmedAt: Date.now(),
+    });
+
+    user.save((error: any) => {
+      if (error) done(error);
+
+      done();
+    });
+  });
+
   const path = '/api/login';
   it('Should return error on missing params', (done) => {
     const params = {
@@ -55,6 +72,26 @@ describe('Test POST /api/login', () => {
         should.exist(response.body);
         response.should.have.status(404);
         response.body.success.should.be.eql('false');
+        done();
+      });
+  });
+
+  it('Should return 200 OK success login', (done) => {
+    const params = {
+      email: 'test@test.com',
+      password: 'mochaChai123',
+    };
+    chai
+      .request(app)
+      .post(path)
+      .send(params)
+      .end((error, response) => {
+        if (error) done(error);
+
+        should.exist(response.body);
+        response.should.have.status(200);
+        response.body.should.have.property('tokens');
+        response.body.success.should.be.eql('true');
         done();
       });
   });
