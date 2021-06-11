@@ -10,6 +10,8 @@ declare module 'express' {
     userData?: any;
     accessToken?: string;
     refreshToken?: string;
+    confirmationToken?: string;
+    passwordResetToken?: string;
   }
 }
 
@@ -27,7 +29,7 @@ describe('test GET /api/logout', () => {
         if (error) done(error);
 
         should.exist(response.body);
-        response.should.have.status(400);
+        response.should.have.status(422);
         response.body.should.have.property('errors');
         response.body.success.should.be.eql('false');
         done();

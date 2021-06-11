@@ -11,11 +11,14 @@ declare module 'express' {
     userData?: any;
     accessToken?: string;
     refreshToken?: string;
+    confirmationToken?: string;
+    passwordResetToken?: string;
   }
 }
 
 // Assertion
 const should = chai.should();
+const expect = chai.expect;
 chai.use(require('chai-http'));
 
 describe('Test Register', () => {
@@ -63,7 +66,7 @@ describe('Test Register', () => {
      * Test Good params
      */
 
-    it('Should return success', (done) => {
+    it('Should return success on Register', (done) => {
       const params = {
         fullname: 'mocha test',
         dateOfBirth: '04-30-1999',
@@ -85,6 +88,23 @@ describe('Test Register', () => {
           response.body.should.have.property('data');
           done();
         });
+    });
+
+    it('Should test password hashing', (done) => {
+      try {
+        const user = User.findOne(
+          { email: 'mocha@email.com' },
+          (error: any, user: any) => {
+            if (error) done(error);
+            if (user) {
+              expect(user.password).not.equal('mochaChai123');
+              done();
+            }
+          },
+        );
+      } catch (error) {
+        done(error);
+      }
     });
   });
 });

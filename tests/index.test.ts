@@ -5,5 +5,7 @@ declare module 'express' {
     userData?: any;
     accessToken?: string;
     refreshToken?: string;
+    confirmationToken?: string;
+    passwordResetToken?: string;
   }
 }

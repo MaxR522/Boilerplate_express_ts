@@ -10,6 +10,8 @@ declare module 'express' {
     userData?: any;
     accessToken?: string;
     refreshToken?: string;
+    confirmationToken?: string;
+    passwordResetToken?: string;
   }
 }
 
@@ -17,40 +19,17 @@ declare module 'express' {
 const should = chai.should();
 chai.use(require('chai-http'));
 
-describe('test POST /api/revoke', () => {
-  const path = '/api/revoke';
-  it('Should return error on missing params', (done) => {
-    const params = {};
-
+describe('test GET /api/revoke-token', () => {
+  const path = '/api/revoke-token';
+  it('Should return error on missing cookie', (done) => {
     chai
       .request(app)
-      .post(path)
-      .send(params)
+      .get(path)
       .end((error, response) => {
         if (error) done(error);
 
         should.exist(response.body);
-        response.should.have.status(401);
-        response.body.should.have.property('errors');
-        response.body.success.should.be.eql('false');
-        done();
-      });
-  });
-
-  it('Should return error on wrong jwt token params', (done) => {
-    const params = {
-      token: 'fafsfgagsaf.fqwffFff.GASAASASAGS',
-    };
-
-    chai
-      .request(app)
-      .post(path)
-      .send(params)
-      .end((error, response) => {
-        if (error) done(error);
-
-        should.exist(response.body);
-        response.should.have.status(401);
+        response.should.have.status(422);
         response.body.should.have.property('errors');
         response.body.success.should.be.eql('false');
         done();
