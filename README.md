@@ -1,4 +1,4 @@
-﻿﻿#Node Js, Express Typescript boilerplate
+﻿﻿# Node.js Express.js Typescript boilerplate
 
 ---
 
@@ -132,28 +132,28 @@ yarn lint
 
 1 - **User authentication system**:
 
-- Register with confirmation email
-- Login generate access and refresh token
-- Logout
-- Generating new access-token
-- Revoke refresh-token
-- Reset password
-- Change password
-- Connection using Google account (coming soon)
-- Connection using Facebook account (coming soon)
+- [x] Register with confirmation email
+- [x] Login generate access and refresh token
+- [x] Logout
+- [x] Generating new access-token
+- [x] Revoke refresh-token
+- [x] Reset password
+- [x] Change password
+- [ ] Connection using Google account (coming soon)
+- [ ] Connection using Facebook account (coming soon)
 
 2 - **CRUD User**: (coming soon)
 
-- Update user's information (coming soon)
-- Delete user's account (coming soon)
-- Reade user's info (all, one, filtered) (coming soon)
+- [ ] Update user's information (coming soon)
+- [ ] Delete user's account (coming soon)
+- [ ] Reade user's info (all, one, filtered) (coming soon)
 
 3 - **CRUD Post** (for example purposes only) (coming soon):
 
-- Create Post, only logged in user
-- Read Post, show posts (all, one or specified query)
-- Update Post, only the user who is the author of Post
-- Delete Post, only the user who is the author of Post
+- [ ] Create Post, only logged in user
+- [ ] Read Post, show posts (all, one or specified query)
+- [ ] Update Post, only the user who is the author of Post
+- [ ] Delete Post, only the user who is the author of Post
 
 ## Some dependencies used with explanation
 
