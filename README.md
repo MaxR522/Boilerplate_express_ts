@@ -1,4 +1,4 @@
-﻿﻿# Node.js Express.js Typescript boilerplate
+# Node.js Express.js Typescript boilerplate
 
 ---
 
