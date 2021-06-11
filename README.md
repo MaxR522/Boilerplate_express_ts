@@ -1,4 +1,6 @@
-﻿﻿# Node Js, Express Typescript boilerplate
+﻿﻿## Node Js, Express Typescript boilerplate
+
+---
 
 ![NodeJs](https://img.shields.io/badge/node.js-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white)![ExpressJs](https://img.shields.io/badge/express.js-%23404d59.svg?&style=for-the-badge)![Typescript](https://img.shields.io/badge/typescript-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white)
 
