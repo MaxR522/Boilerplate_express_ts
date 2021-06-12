@@ -146,7 +146,7 @@ yarn lint
 
 - [ ] Update user's information (coming soon)
 - [ ] Delete user's account (coming soon)
-- [ ] Reade user's info (all, one, filtered) (coming soon)
+- [ ] Read user's info (all, one, filtered) (coming soon)
 
 3 - **CRUD Post** (for example purposes only) (coming soon):
 
@@ -156,6 +156,8 @@ yarn lint
 - [ ] Delete Post, only the user who is the author of Post
 
 ## Some dependencies used with explanation
+
+1. **Prod dependecies**:
 
 - **bcrypt** to encrypt password
 - **cookie-parser** to parse cookie
@@ -168,10 +170,16 @@ yarn lint
 - **passport** for Oauth authentication
 - **express**
 - **axios** to perform some requests
+
+2. **Dev dependencies**:
+
 - **mocha** for testing
 - **chai & chai-hhtp** for testing asssertion
 - **apiDoc** api documentation
 - **nodemon**
+- **typescript**
+- **prettier**
+- **eslint**
 
 ## Author
 
