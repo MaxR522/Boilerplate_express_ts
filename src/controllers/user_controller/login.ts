@@ -7,6 +7,7 @@ import {
   refreshTokenSecret,
   accessTokenLimit,
   refreshTokenLimit,
+  ttlAttemptLogin,
 } from '../../config/config';
 import generateRefreshToken from '../../utils/generate_refresh_tokens';
 import redisClient from '../../index';
@@ -56,6 +57,18 @@ const Login = async (req: Request, res: Response) => {
 
         // If the req password doesn't match with hashed password in database
         if (!isMatch) {
+          // increment value of attempt when password not matching
+          redisClient.incr(`AL_${_email}`, (error: any) => {
+            if (error) {
+              return res.status(400).json({
+                success: 'false',
+                message: 'something went wrong',
+                errors: error,
+              });
+            }
+            redisClient.expire(`AL_${_email}`, ttlAttemptLogin * 60);
+          });
+
           return res.status(401).json({
             success: 'false',
             message: 'Wrong email or password',

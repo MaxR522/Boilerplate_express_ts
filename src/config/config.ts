@@ -28,10 +28,12 @@ declare var process: {
     REDIS_HOST: string;
     TTL_ACCESS_TOKEN: number;
     TTL_PASSWORD_RESET: number;
+    TTL_ATTEMPT_LOGIN: number;
     NODE_ENV: string;
     BASE_URL: string;
     REDIRECT_URL_CONFIRMATION: string;
     REDIRECT_URL_PASSWORD_RESET: string;
+    MAX_ATTEMPT_LOGIN: number;
   };
 };
 
@@ -92,9 +94,12 @@ export const redisHost = process.env.REDIS_HOST || '127.0.0.1';
 
 export const ttlAccessToken = process.env.TTL_ACCESS_TOKEN || 60;
 export const ttlResetPassword = process.env.TTL_PASSWORD_RESET || 24 * 60;
+export const ttlAttemptLogin = process.env.TTL_ATTEMPT_LOGIN || 10;
 
 export const redirectUrlConfirmation =
   process.env.REDIRECT_URL_CONFIRMATION || 'https://github.com/MaxR522';
 
 export const redirectUrlPasswordReset =
   process.env.REDIRECT_URL_PASSWORD_RESET || 'https://github.com/MaxR522';
+
+export const maxAttemptOnLogin = process.env.MAX_ATTEMPT_LOGIN || 10;

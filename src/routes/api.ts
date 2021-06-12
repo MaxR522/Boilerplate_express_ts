@@ -22,6 +22,7 @@ import checkUser from '../middlewares/check_user';
 import blacklistedAccessCheck from '../middlewares/blacklist_access_token';
 import verifyConfirmationToken from '../middlewares/verify_confirmation_token';
 import verifyPasswordResetToken from '../middlewares/verify_password_reset';
+import attemptLoginLimiter from '../middlewares/attempt_login_limiter';
 
 // Init Router
 const route = Router();
@@ -35,7 +36,13 @@ route.post(
   Register,
 );
 
-route.post('/login', authValidationFor('login'), checkValidationResult, Login);
+route.post(
+  '/login',
+  authValidationFor('login'),
+  checkValidationResult,
+  attemptLoginLimiter,
+  Login,
+);
 
 route.get(
   '/refresh-token',

@@ -133,6 +133,12 @@
  *      "message": "user not found, maybe not registered"
  *    }
  *
+ *    HTTP/1.1 429 (Too Many Requests) Max attempt on loggin reached
+ *    {
+ *      "success": "false",
+ *      "message": "Too many attempt on ranjamario@gmail.com, try again after 10 min"
+ *    }
+ *
  */
 
 /**
