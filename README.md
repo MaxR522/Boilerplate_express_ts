@@ -157,11 +157,11 @@ yarn lint
 
 ## Security & Privacy
 
-[x] rate limit attempt on email when login
-[x] JWT auth with access-token (low expiry time) and refresh-token (long expiry time) stored in cookie httpOnly
-[x] CORS
-[X] User's password hashed by bcrypt
-[ ] rate limit request per IP address, All IP address not stored permanently
+- [x] rate limit attempt on email when login
+- [x] JWT auth with access-token (low expiry time) and refresh-token (long expiry time) stored in cookie httpOnly
+- [x] CORS
+- [x] User's password hashed by bcrypt
+- [ ] rate limit request per IP address, All IP address not stored permanently
 
 ## Some dependencies used with explanation
 
