@@ -174,7 +174,7 @@ yarn lint
 2. <ins>**Dev dependencies**:</ins>
 
 - **mocha** for testing
-- **chai & chai-hhtp** for testing asssertion
+- **chai & chai-http** for testing asssertion
 - **apiDoc** api documentation
 - **nodemon**
 - **typescript**
