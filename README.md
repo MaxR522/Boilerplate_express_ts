@@ -124,8 +124,6 @@ yarn lint
 ├──  package.json
 ├──  tsconfig.json
 └──  yarn.lock
-
-
 ```
 
 ## Features
