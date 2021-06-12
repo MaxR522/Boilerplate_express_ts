@@ -157,7 +157,7 @@ yarn lint
 
 ## Some dependencies used with explanation
 
-1. **Prod dependecies**:
+1. <ins>**Prod dependecies**:</ins>
 
 - **bcrypt** to encrypt password
 - **cookie-parser** to parse cookie
@@ -171,7 +171,7 @@ yarn lint
 - **express**
 - **axios** to perform some requests
 
-2. **Dev dependencies**:
+2. <ins>**Dev dependencies**:</ins>
 
 - **mocha** for testing
 - **chai & chai-hhtp** for testing asssertion
