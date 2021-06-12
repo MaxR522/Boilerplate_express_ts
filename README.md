@@ -155,6 +155,14 @@ yarn lint
 - [ ] Update Post, only the user who is the author of Post
 - [ ] Delete Post, only the user who is the author of Post
 
+## Security & Privacy
+
+[x] rate limit attempt on email when login
+[x] JWT auth with access-token (low expiry time) and refresh-token (long expiry time) stored in cookie httpOnly
+[x] CORS
+[X] User's password hashed by bcrypt
+[ ] rate limit request per IP address, All IP address not stored permanently
+
 ## Some dependencies used with explanation
 
 1. <ins>**Prod dependecies**:</ins>
