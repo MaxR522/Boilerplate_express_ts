@@ -29,7 +29,7 @@ describe('test GET /api/refresh-token', () => {
         if (error) done(error);
 
         should.exist(response.body);
-        response.should.have.status(422);
+        response.should.have.status(401);
         response.body.should.have.property('errors');
         response.body.success.should.be.eql('false');
         done();
