@@ -1,6 +1,5 @@
 import * as morgan from 'morgan';
 import Logger from './winston';
-import { env } from './config';
 
 const stream: morgan.StreamOptions = {
   // Use the http severity

@@ -20,7 +20,7 @@ import {
   redisPort,
 } from './config/config';
 import Logger from './config/winston';
-
+import limiter from './middlewares/rate_limiter';
 import apiRoute from './routes/api';
 
 export const app = express();
@@ -47,7 +47,11 @@ app.disable('x-powered-by');
 // Enable trust proxy
 app.enable('trust proxy');
 
+// Use morgan for http logger
 app.use(morganMiddleware);
+
+// Rate limiter per ip
+app.use(limiter);
 
 /*****************************************************
  *
