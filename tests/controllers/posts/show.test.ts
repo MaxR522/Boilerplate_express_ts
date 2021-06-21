@@ -55,8 +55,8 @@ describe('It Should test SHOW Posts', () => {
       });
   });
 
-  it('Should Show all posts filtered by user (Author) by GET /api/posts?user=":userId"', (done) => {
-    const path = '/api/posts?user=":userId"';
+  it('Should Show all posts by user (Author) by GET /api/users/:userId/posts', (done) => {
+    const path = '/api/users/:userId/posts';
 
     chai
       .request(app)
