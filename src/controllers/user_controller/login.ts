@@ -60,6 +60,7 @@ const Login = async (req: Request, res: Response) => {
 
         // If the req password doesn't match with hashed password in database
         if (!isMatch) {
+          Logger.error('Wrong password');
           // increment value of attempt when password not matching
           redisClient.incr(`AL_${_email}`, (error: any) => {
             if (error) {
@@ -83,6 +84,7 @@ const Login = async (req: Request, res: Response) => {
 
         // Confirmation
         if (!user.confirmedAt) {
+          Logger.error("User's email not confirmed");
           return res.status(401).json({
             success: 'false',
             message: 'email not confirmed',

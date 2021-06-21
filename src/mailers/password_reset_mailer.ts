@@ -1,16 +1,17 @@
 import transport from '../config/nodemailer.config';
 import { baseUrl, port } from '../config/config';
+import Logger from '../config/winston';
 
 const sendPasswordResetMail = (email: string, token: string) => {
-  console.log(
+  Logger.info(
     '========================================= Password reset Mail link ===========================================',
   );
-  console.log(' ');
-  console.log(' ');
-  console.log(`${baseUrl}:${port}/api/reset_password/${token}`);
-  console.log(' ');
-  console.log(' ');
-  console.log(
+  Logger.info(' ');
+  Logger.info(' ');
+  Logger.info(`${baseUrl}:${port}/api/reset_password/${token}`);
+  Logger.info(' ');
+  Logger.info(' ');
+  Logger.info(
     '=============================================================================================================+',
   );
   transport.sendMail({

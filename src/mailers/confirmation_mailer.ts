@@ -1,20 +1,21 @@
 import transport from '../config/nodemailer.config';
 import { baseUrl, port } from '../config/config';
+import Logger from '../config/winston';
 
 const sendConfirmationEmail = (
   name: string = '',
   email: string,
   token: string,
 ) => {
-  console.log(
+  Logger.info(
     '========================================= Confirmation Mail Link ===========================================',
   );
-  console.log(' ');
-  console.log(' ');
-  console.log(`${baseUrl}:${port}/api/confirm/${token}`);
-  console.log(' ');
-  console.log(' ');
-  console.log(
+  Logger.info(' ');
+  Logger.info(' ');
+  Logger.info(`${baseUrl}:${port}/api/confirm/${token}`);
+  Logger.info(' ');
+  Logger.info(' ');
+  Logger.info(
     '=============================================================================================================',
   );
   transport.sendMail({
