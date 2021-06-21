@@ -34,6 +34,8 @@ declare var process: {
     REDIRECT_URL_CONFIRMATION: string;
     REDIRECT_URL_PASSWORD_RESET: string;
     MAX_ATTEMPT_LOGIN: number;
+    WINDOW_MS: number;
+    MAX_REQUEST: number;
   };
 };
 
@@ -103,3 +105,6 @@ export const redirectUrlPasswordReset =
   process.env.REDIRECT_URL_PASSWORD_RESET || 'https://github.com/MaxR522';
 
 export const maxAttemptOnLogin = process.env.MAX_ATTEMPT_LOGIN || 10;
+
+export const windowMs = process.env.WINDOW_MS || 60;
+export const maxRequest = process.env.MAX_REQUEST || 1000;
