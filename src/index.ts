@@ -10,6 +10,7 @@ import * as mongoose from 'mongoose';
 import * as redis from 'redis';
 import * as cors from 'cors';
 import * as cookieParser from 'cookie-parser';
+import morganMiddleware from './config/morganMiddlewares';
 import {
   mongooseConfig,
   port,
@@ -18,6 +19,7 @@ import {
   redisHost,
   redisPort,
 } from './config/config';
+import Logger from './config/winston';
 
 import apiRoute from './routes/api';
 
@@ -44,6 +46,8 @@ app.disable('x-powered-by');
 
 // Enable trust proxy
 app.enable('trust proxy');
+
+app.use(morganMiddleware);
 
 /*****************************************************
  *
@@ -99,10 +103,10 @@ app.use(
 // connection to mongoDB
 mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
   if (error) {
-    console.log(`${error} ❌`);
+    Logger.error(`${error} ❌`);
     throw error;
   } else {
-    console.log(`Database :: mongodb connection @: ${mongooseConfig.dsn} ✅`);
+    Logger.info(`Database :: mongodb connection @: ${mongooseConfig.dsn} ✅`);
   }
 });
 
@@ -111,10 +115,10 @@ const redisClient = redis.createClient(redisPort, redisHost);
 
 redisClient
   .on('connect', () => {
-    console.log(`DATABASE :: redis connetion @ ${redisHost}:${redisPort} ✅`);
+    Logger.info(`DATABASE :: redis connetion @ ${redisHost}:${redisPort} ✅`);
   })
   .on('error', (error) => {
-    console.log(`${error} ❌`);
+    Logger.error(`${error} ❌`);
     throw error;
   });
 
@@ -128,10 +132,10 @@ export default redisClient;
 
 app
   .listen(port, '0.0.0.0', () => {
-    console.log(
+    Logger.info(
       `Server :: application is running @ 'http://localhost:${port}' ! 🎉 `,
     );
   })
   .on('error', (error) => {
-    console.log(`${error} ❌`);
+    Logger.info(`${error} ❌`);
   });

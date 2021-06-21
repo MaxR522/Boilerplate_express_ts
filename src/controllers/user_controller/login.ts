@@ -11,6 +11,7 @@ import {
 } from '../../config/config';
 import generateRefreshToken from '../../utils/generate_refresh_tokens';
 import redisClient from '../../index';
+import Logger from '../../config/winston';
 
 const Login = async (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -18,6 +19,7 @@ const Login = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ email: _email }, (error: any) => {
     if (error) {
+      Logger.error(error);
       return res.status(400).json({
         success: 'false',
         message: 'something went wrong',
@@ -48,6 +50,7 @@ const Login = async (req: Request, res: Response) => {
       user.password,
       async (error: any, isMatch: boolean) => {
         if (error) {
+          Logger.error(error);
           return res.status(400).json({
             success: 'false',
             message: 'something went wrong',
@@ -60,6 +63,7 @@ const Login = async (req: Request, res: Response) => {
           // increment value of attempt when password not matching
           redisClient.incr(`AL_${_email}`, (error: any) => {
             if (error) {
+              Logger.error(error);
               return res.status(400).json({
                 success: 'false',
                 message: 'something went wrong',
@@ -74,6 +78,8 @@ const Login = async (req: Request, res: Response) => {
             message: 'Wrong email or password',
           });
         }
+
+        Logger.info('valid user password');
 
         // Confirmation
         if (!user.confirmedAt) {
@@ -95,6 +101,8 @@ const Login = async (req: Request, res: Response) => {
           expiresIn: accessTokenLimit,
         });
 
+        Logger.info('Access-token generated');
+
         // Verify in redis db if there is already a refresh token generated
         // Refresh token doesn't change until the user revoke it
         const userData = {
@@ -109,7 +117,10 @@ const Login = async (req: Request, res: Response) => {
         };
 
         redisClient.get(user._id.toString(), async (error, data) => {
-          if (error) throw error;
+          if (error) {
+            Logger.error(error);
+            throw error;
+          }
 
           if (data === null) {
             const refreshToken = await generateRefreshToken(
@@ -119,11 +130,12 @@ const Login = async (req: Request, res: Response) => {
               refreshTokenSecret,
               refreshTokenLimit,
             );
+            Logger.info('Refresh-token generated');
 
             return res
               .status(200)
               .cookie('refresh_token', refreshToken, {
-                expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days
+                expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // <-- 30 days inside cookies
                 secure: false, // set to true if your using https
                 httpOnly: true,
               })
@@ -137,6 +149,7 @@ const Login = async (req: Request, res: Response) => {
               });
           } else if (JSON.parse(data).token) {
             const refreshToken = await JSON.parse(data).token;
+            Logger.info('Refresh-token served');
 
             return res
               .status(200)

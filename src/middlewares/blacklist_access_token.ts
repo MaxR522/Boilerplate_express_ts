@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import redisClient from '../index';
+import Logger from '../config/winston';
 
 const blacklistedAccessCheck = (
   req: Request,
@@ -11,9 +12,13 @@ const blacklistedAccessCheck = (
 
   // Verify if the access token is not blacklisted
   redisClient.get(`BL_${userId}`, (error, data) => {
-    if (error) throw error;
+    if (error) {
+      throw error;
+      Logger.error(error);
+    }
 
     if (data === accessToken) {
+      Logger.warn(`Access-token already blacklisted`);
       return res.status(401).json({
         success: 'false',
         message: 'you are logged out, please login again',
