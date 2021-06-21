@@ -176,6 +176,8 @@ yarn lint
 - **passport** for Oauth authentication
 - **express**
 - **axios** to perform some requests
+- **winston** for logging
+- **morgan** for http logging
 
 2. <ins>**Dev dependencies**:</ins>
 
