@@ -5,11 +5,13 @@ import {
   ttlResetPassword,
   redirectUrlPasswordReset,
 } from '../../config/config';
+import Logger from '../../config/winston';
 
 const GetResetPassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
+      Logger.error(error);
       return res.status(400).json({
         success: 'false',
         message: 'something ent wrong !',
@@ -24,6 +26,7 @@ const GetResetPassword = (req: Request, res: Response) => {
       ttlResetPassword * 60,
       (error: any) => {
         if (error) {
+          Logger.error(error);
           return res.status(400).json({
             success: 'false',
             message: 'something ent wrong !',
@@ -38,6 +41,7 @@ const GetResetPassword = (req: Request, res: Response) => {
 
     user.save((error: any) => {
       if (error) {
+        Logger.error(error);
         return res.status(400).json({
           success: 'false',
           message: 'something ent wrong !',

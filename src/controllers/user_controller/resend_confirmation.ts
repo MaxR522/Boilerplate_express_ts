@@ -6,12 +6,14 @@ import {
   confirmationTokenSecret,
   confirmationTokenLimit,
 } from '../../config/config';
+import Logger from '../../config/winston';
 
 const ResendConfirmation = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
 
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
+      Logger.error(error);
       return res.status(400).json({
         success: 'false',
         message: 'something went wrong !',
@@ -44,6 +46,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
       user.confirmationSentAt = new Date();
       user.save((error: any) => {
         if (error) {
+          Logger.error(error);
           return res.status(400).json({
             success: 'false',
             message: 'something went wrong !',

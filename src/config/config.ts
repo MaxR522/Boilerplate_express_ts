@@ -37,7 +37,7 @@ declare var process: {
   };
 };
 
-const env = process.env.NODE_ENV;
+export const env = process.env.NODE_ENV;
 
 if (env === 'test') {
   process.env.MONGOOSE_URL = process.env.MONGOOSE_URL_TEST;

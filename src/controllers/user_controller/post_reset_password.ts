@@ -3,12 +3,14 @@ import User from '../../models/user';
 import * as jwt from 'jsonwebtoken';
 import { passwordTokenSecret, passwordTokenLimit } from '../../config/config';
 import sendPasswordResetMail from '../../mailers/password_reset_mailer';
+import Logger from '../../config/winston';
 
 const ResetPassword = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
 
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
+      Logger.error(error);
       return res.status(400).json({
         success: 'false',
         message: 'something went wrong !',
@@ -32,6 +34,7 @@ const ResetPassword = (req: Request, res: Response) => {
     user.passwordResetToken = passwordResetToken;
     await user.save((error: any) => {
       if (error) {
+        Logger.error(error);
         return res.status(400).json({
           success: 'false',
           message: 'something went wrong !',

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { accessTokenSecret } from '../config/config';
+import Logger from '../config/winston';
 
 const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
   const accessToken: any = req.headers.authorization
@@ -10,6 +11,7 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
   // Verify token validity
   jwt.verify(accessToken, accessTokenSecret, (error: any, decoded: any) => {
     if (error) {
+      Logger.error(error);
       return res.status(400).json({
         success: 'false',
         message: 'Something went wrong',

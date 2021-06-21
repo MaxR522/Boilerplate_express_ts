@@ -6,6 +6,7 @@ import {
   confirmationTokenSecret,
   confirmationTokenLimit,
 } from '../../config/config';
+import Logger from '../../config/winston';
 
 const Register = async (req: Request, res: Response) => {
   const _fullname = req.body.fullname;
@@ -17,12 +18,14 @@ const Register = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ email: _email });
     if (user) {
+      Logger.error('email already exists');
       return res.status(409).json({
         success: 'false',
         message: `An account with email: ${_email} is already exists`,
       });
     }
   } catch (error) {
+    Logger.error(error);
     return res.status(400).json({
       success: 'false',
       message: 'something went wrong !',
@@ -72,6 +75,7 @@ const Register = async (req: Request, res: Response) => {
       data: userData,
     });
   } catch (error) {
+    Logger.error(error);
     return res.status(400).json({
       success: 'false',
       message: 'something went wrong',

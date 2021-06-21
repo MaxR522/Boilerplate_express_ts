@@ -1,11 +1,8 @@
-// POST params: newPassword
-// --> check if email is allowed to change password inside redis database
-// if true change password
-
 import { Request, Response } from 'express';
 import redisClient from '../../index';
 import User from '../../models/user';
 import IUser from '../../interfaces/models/user_interface';
+import Logger from '../../config/winston';
 
 const ChangeResetedPassword = (req: Request, res: Response) => {
   const _email = req.body.email;
@@ -13,6 +10,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
   redisClient.get(`PR_${_email}`, (error: any, data: any) => {
     if (error) {
+      Logger.error(error);
       return res.status(400).json({
         success: 'false',
         message: 'Something went wrong #1',
@@ -30,6 +28,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
     User.findOne({ email: _email }, async (error: any, user: IUser) => {
       if (error) {
+        Logger.error(error);
         return res.status(400).json({
           success: 'false',
           message: 'Something went wrong',
@@ -48,6 +47,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
       await user.save((error: any) => {
         if (error) {
+          Logger.error(error);
           return res.status(400).json({
             success: 'false',
             message: 'Something went wrong #2',

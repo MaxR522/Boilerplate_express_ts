@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { passwordTokenSecret } from '../config/config';
 import User from '../models/user';
+import Logger from '../config/winston';
 
 const verifyPasswordResetToken = async (
   req: Request,
@@ -15,6 +16,7 @@ const verifyPasswordResetToken = async (
     passwordTokenSecret,
     (error: any, decoded: any) => {
       if (error) {
+        Logger.error(error);
         return res.status(400).json({
           success: 'false',
           message: 'something went wrong !',
@@ -25,6 +27,7 @@ const verifyPasswordResetToken = async (
       if (decoded) {
         User.findOne({ email: decoded.email }, (error: any, user: any) => {
           if (error) {
+            Logger.error(error);
             return res.status(400).json({
               success: 'false',
               message: 'something went wrong !',
