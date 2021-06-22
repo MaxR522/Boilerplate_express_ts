@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "get",
-    "url": "/api/logout",
+    "url": "/api/auth/logout",
     "title": "4. Logout",
     "group": "User",
     "version": "1.0.0",
@@ -64,11 +64,11 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "GetApiLogout"
+    "name": "GetApiAuthLogout"
   },
   {
     "type": "get",
-    "url": "/api/refresh-token",
+    "url": "/api/auth/refresh-token",
     "title": "3. Refresh token",
     "group": "User",
     "version": "1.0.0",
@@ -118,11 +118,11 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "GetApiRefreshToken"
+    "name": "GetApiAuthRefreshToken"
   },
   {
     "type": "get",
-    "url": "/api/revoke-token",
+    "url": "/api/auth/revoke-token",
     "title": "5. Revoke refresh token",
     "group": "User",
     "version": "1.0.0",
@@ -172,11 +172,11 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "GetApiRevokeToken"
+    "name": "GetApiAuthRevokeToken"
   },
   {
     "type": "post",
-    "url": "/api/confirm/send",
+    "url": "/api/auth/confirm/send",
     "title": "6. Resend confirmation email",
     "group": "User",
     "version": "1.0.0",
@@ -246,11 +246,11 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "PostApiConfirmSend"
+    "name": "PostApiAuthConfirmSend"
   },
   {
     "type": "post",
-    "url": "/api/login",
+    "url": "/api/auth/login",
     "title": "2. Login",
     "group": "User",
     "version": "1.0.0",
@@ -327,18 +327,18 @@ define({ "api": [
       "examples": [
         {
           "title": "List error",
-          "content": "HTTP/1.1 409 (conflict) account registered with Oauth\n{\n  \"success\": \"false\",\n  \"message\": \"Please login using your social creds\"\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (unauthorized) wrong password or email\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong email or password\"\n}\n\nHTTP/1.1 401 (unauthorized) account not confirmed yet\n{\n  \"success\": \"false\",\n  \"message\": \"email not confirmed\"\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
+          "content": "HTTP/1.1 409 (conflict) account registered with Oauth\n{\n  \"success\": \"false\",\n  \"message\": \"Please login using your social creds\"\n}\n\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 401 (unauthorized) wrong password or email\n{\n  \"success\": \"false\",\n  \"message\": \"Wrong email or password\"\n}\n\nHTTP/1.1 401 (unauthorized) account not confirmed yet\n{\n  \"success\": \"false\",\n  \"message\": \"email not confirmed\"\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}\n\nHTTP/1.1 429 (Too Many Requests) Max attempt on loggin reached\n{\n  \"success\": \"false\",\n  \"message\": \"Too many attempt on ranjamario@gmail.com, try again after 10 min\"\n}",
           "type": "json"
         }
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "PostApiLogin"
+    "name": "PostApiAuthLogin"
   },
   {
     "type": "post",
-    "url": "/api/password/change",
+    "url": "/api/auth/password/change",
     "title": "8. change reset password",
     "group": "User",
     "version": "1.0.0",
@@ -408,15 +408,35 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "PostApiPasswordChange"
+    "name": "PostApiAuthPasswordChange"
   },
   {
     "type": "post",
-    "url": "/api/password/modify",
+    "url": "/api/auth/password/modify",
     "title": "9. modify password",
     "group": "User",
     "version": "1.0.0",
     "description": "<p>Request to modify password after login</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>access-token generated during login or new Token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"Authorization\": \"Barear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "parameter": {
       "fields": {
         "Parameter": [
@@ -489,11 +509,11 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "PostApiPasswordModify"
+    "name": "PostApiAuthPasswordModify"
   },
   {
     "type": "post",
-    "url": "/api/password/reset",
+    "url": "/api/auth/password/reset",
     "title": "7. Reset password",
     "group": "User",
     "version": "1.0.0",
@@ -563,11 +583,11 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "PostApiPasswordReset"
+    "name": "PostApiAuthPasswordReset"
   },
   {
     "type": "post",
-    "url": "/api/register",
+    "url": "/api/auth/register",
     "title": "1. Register",
     "group": "User",
     "version": "1.0.0",
@@ -657,6 +677,100 @@ define({ "api": [
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
     "groupTitle": "User",
-    "name": "PostApiRegister"
+    "name": "PostApiAuthRegister"
+  },
+  {
+    "type": "post",
+    "url": "/api/users/info",
+    "title": "10. Update user's info",
+    "group": "User",
+    "version": "1.0.0",
+    "description": "<p>Request to update user's info</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>access-token generated during login or new Token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"Authorization\": \"Barear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>User's fullname (not mandatory)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "dateOfBirth",
+            "description": "<p>User's dateOfBirth (not mandatory)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"fullname\": \"Mario Randrianomearisoa\",\n  \"dateOfBirth\": \"04-30-1997\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"user updated successfully\",\n  \"data\": {\n    \"_id\": \"60d07290cef95054ed365729\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"dateOfBirth\": \"1997-04-29T21:00:00.000Z\",\n    \"email\": \"ranjamario@gmail.com\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}\n\n HTTP/1.1 401 (Unauthorized) logged out (access token blacklisted)\n{\n  \"success\": \"false\",\n  \"message\": \"you are logged out, please login again\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_user.routes.ts",
+    "groupTitle": "User",
+    "name": "PostApiUsersInfo"
   }
 ] });

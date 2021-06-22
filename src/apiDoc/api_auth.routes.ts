@@ -1,5 +1,5 @@
 /**
- * @api {post} /api/register 1. Register
+ * @api {post} /api/auth/register 1. Register
  * @apiGroup User
  * @apiVersion 1.0.0
  *
@@ -58,7 +58,7 @@
  */
 
 /**
- * @api {post} /api/login 2. Login
+ * @api {post} /api/auth/login 2. Login
  * @apiGroup User
  * @apiVersion 1.0.0
  *
@@ -142,7 +142,7 @@
  */
 
 /**
- * @api {get} /api/refresh-token 3. Refresh token
+ * @api {get} /api/auth/refresh-token 3. Refresh token
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Generate new access-token, cookie with name "refresh_token" is needed
@@ -200,7 +200,7 @@
  */
 
 /**
- * @api {get} /api/logout 4. Logout
+ * @api {get} /api/auth/logout 4. Logout
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription To logout, it blacklist the access token provided in the header
@@ -248,7 +248,7 @@
  */
 
 /**
- * @api {get} /api/revoke-token 5. Revoke refresh token
+ * @api {get} /api/auth/revoke-token 5. Revoke refresh token
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Make refresh token invalid, cookie with name "refresh_token" is needed
@@ -300,7 +300,7 @@
  */
 
 /**
- * @api {post} /api/confirm/send 6. Resend confirmation email
+ * @api {post} /api/auth/confirm/send 6. Resend confirmation email
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Resend confirmation token
@@ -351,7 +351,7 @@
  */
 
 /**
- * @api {post} /api/password/reset 7. Reset password
+ * @api {post} /api/auth/password/reset 7. Reset password
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Request to reset user's password in case of forgotten password by example
@@ -397,7 +397,7 @@
  */
 
 /**
- * @api {post} /api/password/change 8. change reset password
+ * @api {post} /api/auth/password/change 8. change reset password
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Request to change password after the user request changment
@@ -449,10 +449,16 @@
  */
 
 /**
- * @api {post} /api/password/modify 9. modify password
+ * @api {post} /api/auth/password/modify 9. modify password
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Request to modify password after login
+ *
+ * @apiHeader {String} Authorization access-token generated during login or new Token
+ * @apiHeaderExample {json} Input
+ *    {
+ *      "Authorization": "Barear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk"
+ *    }
  *
  * @apiParam {String} email User's email
  * @apiParam {String} password current User's password
