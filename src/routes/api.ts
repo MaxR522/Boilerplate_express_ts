@@ -12,6 +12,7 @@ import ResetPassword from '../controllers/user_controller/post_reset_password';
 import GetResetPassword from '../controllers/user_controller/get_reset_password';
 import ChangeResetedPassword from '../controllers/user_controller/change_reset_password';
 import ChangePassword from '../controllers/user_controller/change_pasword';
+import UpdateInfo from '../controllers/user_controller/update_info';
 
 // Middlewares
 import authValidationFor from '../middlewares/auth_field_validators';
@@ -107,6 +108,14 @@ route.post(
   verifyAccessToken,
   blacklistedAccessCheck,
   ChangePassword,
+);
+
+route.patch(
+  '/user/info',
+  authValidationFor('user_info'),
+  checkValidationResult,
+  verifyAccessToken,
+  UpdateInfo,
 );
 
 export default route;

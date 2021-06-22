@@ -1,4 +1,5 @@
 import { body, cookie, header, param } from 'express-validator';
+// import Logger from '../config/winston';
 
 const authValidationFor = (route: string) => {
   switch (route) {
@@ -94,6 +95,19 @@ const authValidationFor = (route: string) => {
           'authorization',
           'Authorization header must be provided',
         ).notEmpty(),
+      ];
+
+    case 'user_info':
+      return [
+        body('dateOfBirth', 'Wrong format of date in DateOfBirth').custom(
+          (value) => {
+            if (!value) {
+              return true;
+            }
+            // MM/DD/YYYY
+            return !isNaN(Date.parse(value));
+          },
+        ),
       ];
 
     default:
