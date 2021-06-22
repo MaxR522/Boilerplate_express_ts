@@ -1,6 +1,6 @@
 /**
  * @api {post} /api/auth/register 1. Register
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  *
  * @apiParam {String} fullname User fullname
@@ -59,7 +59,7 @@
 
 /**
  * @api {post} /api/auth/login 2. Login
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  *
  * @apiParam {String} email User email
@@ -143,7 +143,7 @@
 
 /**
  * @api {get} /api/auth/refresh-token 3. Refresh token
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription Generate new access-token, cookie with name "refresh_token" is needed
  *
@@ -201,7 +201,7 @@
 
 /**
  * @api {get} /api/auth/logout 4. Logout
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription To logout, it blacklist the access token provided in the header
  *
@@ -249,7 +249,7 @@
 
 /**
  * @api {get} /api/auth/revoke-token 5. Revoke refresh token
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription Make refresh token invalid, cookie with name "refresh_token" is needed
  *
@@ -301,7 +301,7 @@
 
 /**
  * @api {post} /api/auth/confirm/send 6. Resend confirmation email
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription Resend confirmation token
  *
@@ -352,7 +352,7 @@
 
 /**
  * @api {post} /api/auth/password/reset 7. Reset password
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription Request to reset user's password in case of forgotten password by example
  *
@@ -398,7 +398,7 @@
 
 /**
  * @api {post} /api/auth/password/change 8. change reset password
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription Request to change password after the user request changment
  *
@@ -450,7 +450,7 @@
 
 /**
  * @api {post} /api/auth/password/modify 9. modify password
- * @apiGroup User
+ * @apiGroup User Auth
  * @apiVersion 1.0.0
  * @apiDescription Request to modify password after login
  *

@@ -3,7 +3,7 @@ define({ "api": [
     "type": "get",
     "url": "/api/auth/logout",
     "title": "4. Logout",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>To logout, it blacklist the access token provided in the header</p>",
     "header": {
@@ -63,14 +63,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "GetApiAuthLogout"
   },
   {
     "type": "get",
     "url": "/api/auth/refresh-token",
     "title": "3. Refresh token",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>Generate new access-token, cookie with name &quot;refresh_token&quot; is needed</p>",
     "success": {
@@ -117,14 +117,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "GetApiAuthRefreshToken"
   },
   {
     "type": "get",
     "url": "/api/auth/revoke-token",
     "title": "5. Revoke refresh token",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>Make refresh token invalid, cookie with name &quot;refresh_token&quot; is needed</p>",
     "success": {
@@ -171,14 +171,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "GetApiAuthRevokeToken"
   },
   {
     "type": "post",
     "url": "/api/auth/confirm/send",
     "title": "6. Resend confirmation email",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>Resend confirmation token</p>",
     "parameter": {
@@ -245,14 +245,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "PostApiAuthConfirmSend"
   },
   {
     "type": "post",
     "url": "/api/auth/login",
     "title": "2. Login",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "parameter": {
       "fields": {
@@ -333,14 +333,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "PostApiAuthLogin"
   },
   {
     "type": "post",
     "url": "/api/auth/password/change",
     "title": "8. change reset password",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>Request to change password after the user request changment</p>",
     "parameter": {
@@ -407,14 +407,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "PostApiAuthPasswordChange"
   },
   {
     "type": "post",
     "url": "/api/auth/password/modify",
     "title": "9. modify password",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>Request to modify password after login</p>",
     "header": {
@@ -508,14 +508,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "PostApiAuthPasswordModify"
   },
   {
     "type": "post",
     "url": "/api/auth/password/reset",
     "title": "7. Reset password",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "description": "<p>Request to reset user's password in case of forgotten password by example</p>",
     "parameter": {
@@ -582,14 +582,14 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "PostApiAuthPasswordReset"
   },
   {
     "type": "post",
     "url": "/api/auth/register",
     "title": "1. Register",
-    "group": "User",
+    "group": "User_Auth",
     "version": "1.0.0",
     "parameter": {
       "fields": {
@@ -676,14 +676,202 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_auth.routes.ts",
-    "groupTitle": "User",
+    "groupTitle": "User_Auth",
     "name": "PostApiAuthRegister"
   },
   {
-    "type": "post",
+    "type": "delete",
+    "url": "/api/users/:id",
+    "title": "4. Delete user's accoutn by user",
+    "group": "User_Info",
+    "version": "1.0.0",
+    "description": "<p>Request to delete user's account by the user himself</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>access-token generated during login or new Token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"Authorization\": \"Barear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGIxZTU0ZDBkNjdmYTFhMTZiNDg5NGUiLCJlbWFpbCI6Im1hcmlvQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjIyMjc0NzM5LCJleHAiOjE2MjQ4NjY3Mzl9.0Cf_vzs8wwvb3sGg0REFGg7di192QC0cH19X5omdXbk\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>User's current password (mandatory)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User's id (mandatory)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"password\": \"Password2\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>message response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"message\": \"user deleted with success\",\n  \"data\": {\n    \"_id\": \"60d07290cef95054ed365729\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"dateOfBirth\": \"1997-04-29T21:00:00.000Z\",\n    \"email\": \"ranjamario@gmail.com\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 422 (unprocessable entity) Missing or wrong param format\n{\n  \"success\": \"false\",\n  \"message\": \"Params error\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}\n\n HTTP/1.1 401 (Unauthorized) logged out (access token blacklisted)\n{\n  \"success\": \"false\",\n  \"message\": \"you are logged out, please login again\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_user.routes.ts",
+    "groupTitle": "User_Info",
+    "name": "DeleteApiUsersId"
+  },
+  {
+    "type": "get",
+    "url": "/api/users/all",
+    "title": "3. Show all user's info",
+    "group": "User_Info",
+    "version": "1.0.0",
+    "description": "<p>Request to show all user's info</p>",
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "string",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Array of Object with the user's info</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"data\": [{\n    \"_id\": \"60d07290cef95054ed365729\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"dateOfBirth\": \"1997-04-29T21:00:00.000Z\",\n    \"email\": \"ranjamario@gmail.com\",\n    \"role\": \"user\",\n    \"picture\": \"https://gravatar.com/avatar/e621f1906ca44fa197b8e09662c60042\",\n    \"createdAt\": \"2021-06-21T11:21:12.984Z\",\n    \"updatedAt\": \"2021-06-21T11:21:12.984Z\"\n  }]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_user.routes.ts",
+    "groupTitle": "User_Info",
+    "name": "GetApiUsersAll"
+  },
+  {
+    "type": "get",
+    "url": "/api/users/:id",
+    "title": "2. Show user's info",
+    "group": "User_Info",
+    "version": "1.0.0",
+    "description": "<p>Request to show single user's info</p>",
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Status of the request</p>"
+          },
+          {
+            "group": "200",
+            "type": "string",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Object with the user's info</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"true\",\n  \"data\": {\n    \"_id\": \"60d07290cef95054ed365729\",\n    \"fullname\": \"Mario Randrianomearisoa\",\n    \"dateOfBirth\": \"1997-04-29T21:00:00.000Z\",\n    \"email\": \"ranjamario@gmail.com\",\n    \"role\": \"user\",\n    \"picture\": \"https://gravatar.com/avatar/e621f1906ca44fa197b8e09662c60042\",\n    \"createdAt\": \"2021-06-21T11:21:12.984Z\",\n    \"updatedAt\": \"2021-06-21T11:21:12.984Z\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "List error",
+          "content": "\nHTTP/1.1 400 (bad request) some random error, specified inside errors property\n{\n  \"success\": \"false\",\n  \"message\": \"Something went wrong\"\n  \"errors\": []\n}\n\nHTTP/1.1 404 (not found) user not found\n{\n  \"success\": \"false\",\n  \"message\": \"user not found, maybe not registered\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/apiDoc/api_user.routes.ts",
+    "groupTitle": "User_Info",
+    "name": "GetApiUsersId"
+  },
+  {
+    "type": "patch",
     "url": "/api/users/info",
-    "title": "10. Update user's info",
-    "group": "User",
+    "title": "1. Update user's info",
+    "group": "User_Info",
     "version": "1.0.0",
     "description": "<p>Request to update user's info</p>",
     "header": {
@@ -770,7 +958,7 @@ define({ "api": [
       ]
     },
     "filename": "src/apiDoc/api_user.routes.ts",
-    "groupTitle": "User",
-    "name": "PostApiUsersInfo"
+    "groupTitle": "User_Info",
+    "name": "PatchApiUsersInfo"
   }
 ] });
