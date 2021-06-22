@@ -110,6 +110,9 @@ const authValidationFor = (route: string) => {
         ),
       ];
 
+    case 'password_only':
+      return [body('password', 'password cannot be blank').notEmpty()];
+
     default:
       return [];
   }

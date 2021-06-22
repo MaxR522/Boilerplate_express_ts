@@ -4,6 +4,7 @@ import { Router } from 'express';
 import UpdateInfo from '../../controllers/user_controller/update_info';
 import ShowOneUser from '../../controllers/user_controller/show_one';
 import ShowAllUser from '../../controllers/user_controller/show_all';
+import DeleteUser from '../../controllers/user_controller/delete';
 
 // Middlewares
 import verifyAccessToken from '../../middlewares/verify_token';
@@ -26,5 +27,14 @@ route.patch(
 route.get('/all', ShowAllUser);
 
 route.get('/:id', ShowOneUser);
+
+route.delete(
+  '/:id',
+  authValidationFor('password_only'),
+  checkValidationResult,
+  verifyAccessToken,
+  blacklistedAccessCheck,
+  DeleteUser,
+);
 
 export default route;
