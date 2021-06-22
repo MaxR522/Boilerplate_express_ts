@@ -140,9 +140,9 @@ yarn lint
 - [ ] Connection using Google account (coming soon)
 - [ ] Connection using Facebook account (coming soon)
 
-2 - **CRUD User**: (coming soon)
+2 - **CRUD User**:
 
-- [ ] Update user's information (coming soon)
+- [x] Update user's information
 - [ ] Delete user's account (coming soon)
 - [ ] Read user's info (all, one, filtered) (coming soon)
 
