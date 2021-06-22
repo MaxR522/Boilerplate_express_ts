@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import redisClient from '../../index';
-import { ttlAccessToken } from '../../config/config';
-import Logger from '../../config/winston';
+import redisClient from '../../../index';
+import { ttlAccessToken } from '../../../config/config';
+import Logger from '../../../config/winston';
 
 const Logout = async (req: Request, res: Response) => {
   const accessToken = req.accessToken;

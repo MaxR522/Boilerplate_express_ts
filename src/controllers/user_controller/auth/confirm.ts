@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import User from '../../models/user';
-import { redirectUrlConfirmation } from '../../config/config';
-import Logger from '../../config/winston';
+import User from '../../../models/user';
+import { redirectUrlConfirmation } from '../../../config/config';
+import Logger from '../../../config/winston';
 
 const Confirm = (req: Request, res: Response) => {
   const _email = req.userData.email;

@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
-import User from '../../models/user';
+import User from '../../../models/user';
 import * as jwt from 'jsonwebtoken';
-import { passwordTokenSecret, passwordTokenLimit } from '../../config/config';
-import sendPasswordResetMail from '../../mailers/password_reset_mailer';
-import Logger from '../../config/winston';
+import {
+  passwordTokenSecret,
+  passwordTokenLimit,
+} from '../../../config/config';
+import sendPasswordResetMail from '../../../mailers/password_reset_mailer';
+import Logger from '../../../config/winston';
 
 const ResetPassword = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();

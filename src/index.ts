@@ -21,7 +21,8 @@ import {
 } from './config/config';
 import Logger from './config/winston';
 import limiter from './middlewares/rate_limiter';
-import apiRoute from './routes/api';
+import authRoute from './routes/api/auth';
+import userRoute from './routes/api/user_routes';
 
 export const app = express();
 
@@ -65,7 +66,8 @@ app.get('/', (req, res) => {
   res.send('well done');
 });
 
-app.use('/api', apiRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/users', userRoute);
 
 /*****************************************************
  *

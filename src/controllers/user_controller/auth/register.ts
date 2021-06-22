@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import User from '../../models/user';
-import sendConfirmationEmail from '../../mailers/confirmation_mailer';
+import User from '../../../models/user';
+import sendConfirmationEmail from '../../../mailers/confirmation_mailer';
 import * as jwt from 'jsonwebtoken';
 import {
   confirmationTokenSecret,
   confirmationTokenLimit,
-} from '../../config/config';
-import Logger from '../../config/winston';
+} from '../../../config/config';
+import Logger from '../../../config/winston';
 
 const Register = async (req: Request, res: Response) => {
   const _fullname = req.body.fullname;

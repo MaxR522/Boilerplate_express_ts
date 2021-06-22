@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import User from '../../models/user';
+import User from '../../../models/user';
 import {
   accessTokenSecret,
   refreshTokenSecret,
   accessTokenLimit,
   refreshTokenLimit,
   ttlAttemptLogin,
-} from '../../config/config';
-import generateRefreshToken from '../../utils/generate_refresh_tokens';
-import redisClient from '../../index';
-import Logger from '../../config/winston';
+} from '../../../config/config';
+import generateRefreshToken from '../../../utils/generate_refresh_tokens';
+import redisClient from '../../../index';
+import Logger from '../../../config/winston';
 
 const Login = async (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();

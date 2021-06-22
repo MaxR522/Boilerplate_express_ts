@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import redisClient from '../../index';
-import Logger from '../../config/winston';
+import redisClient from '../../../index';
+import Logger from '../../../config/winston';
 
 const RevokeRefreshToken = (req: Request, res: Response) => {
   const userId = req.userData.sub;

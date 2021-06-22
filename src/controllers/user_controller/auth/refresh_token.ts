@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { accessTokenSecret, accessTokenLimit } from '../../config/config';
-import Logger from '../../config/winston';
+import { accessTokenSecret, accessTokenLimit } from '../../../config/config';
+import Logger from '../../../config/winston';
 
 const NewToken = async (req: Request, res: Response) => {
   try {

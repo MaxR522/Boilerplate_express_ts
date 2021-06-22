@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import redisClient from '../../index';
-import User from '../../models/user';
-import IUser from '../../interfaces/models/user_interface';
-import Logger from '../../config/winston';
+import redisClient from '../../../index';
+import User from '../../../models/user';
+import IUser from '../../../interfaces/models/user_interface';
+import Logger from '../../../config/winston';
 
 const ChangeResetedPassword = (req: Request, res: Response) => {
   const _email = req.body.email;

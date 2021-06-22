@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import User from '../../models/user';
-import IUser from '../../interfaces/models/user_interface';
+import User from '../../../models/user';
+import IUser from '../../../interfaces/models/user_interface';
 import * as bcrypt from 'bcrypt';
-import Logger from '../../config/winston';
+import Logger from '../../../config/winston';
 
 const ChangePassword = (req: Request, res: Response) => {
   const _email = req.userData.email;

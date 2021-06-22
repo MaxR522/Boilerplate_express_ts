@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import User from '../../models/user';
-import redisClient from '../../index';
+import User from '../../../models/user';
+import redisClient from '../../../index';
 import {
   ttlResetPassword,
   redirectUrlPasswordReset,
-} from '../../config/config';
-import Logger from '../../config/winston';
+} from '../../../config/config';
+import Logger from '../../../config/winston';
 
 const GetResetPassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
