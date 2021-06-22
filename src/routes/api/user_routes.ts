@@ -16,7 +16,7 @@ import blacklistedAccessCheck from '../../middlewares/blacklist_access_token';
 const route = Router();
 
 route.patch(
-  '/info',
+  '/:id/info',
   authValidationFor('user_info'),
   checkValidationResult,
   verifyAccessToken,

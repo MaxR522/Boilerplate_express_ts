@@ -4,11 +4,11 @@ import IUser from '../../interfaces/models/user_interface';
 import Logger from '../../config/winston';
 
 const UpdateInfo = (req: Request, res: Response) => {
-  const _email = req.userData.email;
+  const _id = req.params.id;
   const _newFullName = req.body.fullname;
   const _newDateOfBirth = req.body.dateOfBirth;
 
-  User.findOne({ email: _email }, (error: any, user: IUser) => {
+  User.findOne({ _id: _id }, (error: any, user: IUser) => {
     if (error) {
       Logger.error(error);
       return res.status(400).json({

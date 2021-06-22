@@ -1,5 +1,5 @@
 /**
- * @api {patch} /api/users/info 1. Update user's info
+ * @api {patch} /api/users/:id/info 1. Update user's info
  * @apiGroup User Info
  * @apiVersion 1.0.0
  * @apiDescription Request to update user's info
