@@ -103,8 +103,9 @@ yarn lint
 │   └── apiDoc (all apiDoc for routes)
 │   └── config (all config files and variables from .env)
 │   └── controllers
-│	└── post_controller
-│	└── user_controller
+│	    └── post_controller
+│	    └── user_controller
+│	        └── auth
 │   └── custom_typings (adding custom types)
 │   └── interfaces (all the interfaces)
 │   └── mailers
