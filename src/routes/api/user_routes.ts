@@ -2,6 +2,8 @@ import { Router } from 'express';
 
 // Controllers
 import UpdateInfo from '../../controllers/user_controller/update_info';
+import ShowOneUser from '../../controllers/user_controller/show_one';
+import ShowAllUser from '../../controllers/user_controller/show_all';
 
 // Middlewares
 import verifyAccessToken from '../../middlewares/verify_token';
@@ -20,5 +22,9 @@ route.patch(
   blacklistedAccessCheck,
   UpdateInfo,
 );
+
+route.get('/all', ShowAllUser);
+
+route.get('/:id', ShowOneUser);
 
 export default route;
