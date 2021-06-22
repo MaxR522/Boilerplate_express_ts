@@ -144,8 +144,8 @@ yarn lint
 2 - **CRUD User**:
 
 - [x] Update user's information
-- [ ] Delete user's account (coming soon)
-- [x] Read user's info (all, one, filtered)
+- [x] Delete user's account
+- [x] Read user's info (all, one)
 
 3 - **CRUD Post** (for example purposes only) (coming soon):
 
