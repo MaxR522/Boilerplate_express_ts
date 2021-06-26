@@ -4,8 +4,6 @@ import * as cookieParser from 'cookie-parser';
 import morganMiddleware from './config/morganMiddlewares';
 import { maxUploadLimit, corsOption } from './config/config';
 import limiter from './middlewares/rate_limiter';
-// import authRoute from './routes/api/auth';
-// import userRoute from './routes/api/user_routes';
 import routes from './routes';
 
 export const app = express();
@@ -46,12 +44,6 @@ app.use(limiter);
 // Serving static files from "public" folder
 app.use(express.static('doc'));
 
-app.get('/', (req, res) => {
-  res.send('well done');
-});
-
-// app.use('/api/auth', authRoute);
-// app.use('/api/users', userRoute);
 app.use('/', routes);
 
 /*****************************************************
