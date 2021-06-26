@@ -41,7 +41,7 @@ app.use(limiter);
  *  Define all Routes
  *
  *****************************************************/
-// Serving static files from "public" folder
+// Serving static files from doc/
 app.use(express.static('doc'));
 
 app.use('/', routes);
