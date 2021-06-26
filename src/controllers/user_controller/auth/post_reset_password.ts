@@ -7,6 +7,7 @@ import {
 } from '../../../config/config';
 import sendPasswordResetMail from '../../../mailers/password_reset_mailer';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const ResetPassword = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -14,11 +15,7 @@ const ResetPassword = (req: Request, res: Response) => {
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong !',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     if (!user) {
@@ -38,11 +35,7 @@ const ResetPassword = (req: Request, res: Response) => {
     await user.save((error: any) => {
       if (error) {
         Logger.error(error);
-        return res.status(400).json({
-          success: 'false',
-          message: 'something went wrong !',
-          errors: error,
-        });
+        genericError(res, error);
       }
 
       sendPasswordResetMail(_email, passwordResetToken);

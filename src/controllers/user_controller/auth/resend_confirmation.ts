@@ -7,6 +7,7 @@ import {
   confirmationTokenLimit,
 } from '../../../config/config';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const ResendConfirmation = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -14,11 +15,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong !',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     if (!user) {
@@ -47,11 +44,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
       user.save((error: any) => {
         if (error) {
           Logger.error(error);
-          return res.status(400).json({
-            success: 'false',
-            message: 'something went wrong !',
-            errors: error,
-          });
+          genericError(res, error);
         }
 
         sendConfirmationEmail('', _email, newConfirmationToken);

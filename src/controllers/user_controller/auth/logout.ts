@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import redisClient from '../../../config/db.connect';
 import { ttlAccessToken } from '../../../config/config';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const Logout = async (req: Request, res: Response) => {
   const accessToken = req.accessToken;
@@ -19,11 +20,7 @@ const Logout = async (req: Request, res: Response) => {
       (error) => {
         if (error) {
           Logger.error(error);
-          return res.status(400).json({
-            success: 'false',
-            message: 'something went wrong',
-            errors: error,
-          });
+          genericError(res, error);
         }
 
         Logger.warn('Token blacklisted');

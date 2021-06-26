@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { confirmationTokenSecret } from '../config/config';
 import User from '../models/user';
 import Logger from '../config/winston';
+import genericError from '../utils/generic_error';
 
 const verifyConfirmationToken = async (
   req: Request,
@@ -17,22 +18,14 @@ const verifyConfirmationToken = async (
     (error: any, decoded: any) => {
       if (error) {
         Logger.error(error);
-        return res.status(400).json({
-          success: 'false',
-          message: 'something went wrong !',
-          errors: error,
-        });
+        genericError(res, error);
       }
 
       if (decoded) {
         User.findOne({ email: decoded.email }, (error: any, user: any) => {
           if (error) {
             Logger.error(error);
-            return res.status(400).json({
-              success: 'false',
-              message: 'something went wrong !',
-              errors: error,
-            });
+            genericError(res, error);
           }
 
           if (!user) {

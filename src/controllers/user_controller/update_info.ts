@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import User from '../../models/user';
 import IUser from '../../interfaces/models/user_interface';
 import Logger from '../../config/winston';
+import genericError from '../../utils/generic_error';
 
 const UpdateInfo = (req: Request, res: Response) => {
   const _id = req.params.id;
@@ -11,11 +12,7 @@ const UpdateInfo = (req: Request, res: Response) => {
   User.findOne({ _id: _id }, (error: any, user: IUser) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong !',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     if (!user) {
@@ -32,11 +29,7 @@ const UpdateInfo = (req: Request, res: Response) => {
     user.save((error: any) => {
       if (error) {
         Logger.error(error);
-        return res.status(400).json({
-          success: 'false',
-          message: 'something went wrong !',
-          errors: error,
-        });
+        genericError(res, error);
       }
 
       const userData = {

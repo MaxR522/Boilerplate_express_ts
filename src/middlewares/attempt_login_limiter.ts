@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import redisClient from '../config/db.connect';
 import { maxAttemptOnLogin } from '../config/config';
 import Logger from '../config/winston';
+import genericError from '../utils/generic_error';
 
 const attemptLoginLimiter = async (
   req: Request,
@@ -13,11 +14,7 @@ const attemptLoginLimiter = async (
   await redisClient.get(`AL_${_email}`, (error: any, data: any) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     if (!data) {

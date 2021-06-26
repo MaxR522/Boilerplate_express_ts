@@ -6,17 +6,14 @@ import {
   redirectUrlPasswordReset,
 } from '../../../config/config';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const GetResetPassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something ent wrong !',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     await redisClient.set(
@@ -27,11 +24,7 @@ const GetResetPassword = (req: Request, res: Response) => {
       (error: any) => {
         if (error) {
           Logger.error(error);
-          return res.status(400).json({
-            success: 'false',
-            message: 'something ent wrong !',
-            errors: error,
-          });
+          genericError(res, error);
         }
       },
     );
@@ -42,11 +35,7 @@ const GetResetPassword = (req: Request, res: Response) => {
     user.save((error: any) => {
       if (error) {
         Logger.error(error);
-        return res.status(400).json({
-          success: 'false',
-          message: 'something ent wrong !',
-          errors: error,
-        });
+        genericError(res, error);
       }
 
       // Add inside query param the email of the user to find the current user.

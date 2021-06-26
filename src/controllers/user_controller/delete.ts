@@ -4,6 +4,7 @@ import IUser from '../../interfaces/models/user_interface';
 import Logger from '../../config/winston';
 import * as bcrypt from 'bcrypt';
 import redisClient from '../../config/db.connect';
+import genericError from '../../utils/generic_error';
 
 const DeleteUser = (req: Request, res: Response) => {
   const _id = req.params.id;
@@ -12,11 +13,7 @@ const DeleteUser = (req: Request, res: Response) => {
   User.findOne({ _id: _id }, (error: any, user: IUser) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong !',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     if (!user) {
@@ -29,11 +26,7 @@ const DeleteUser = (req: Request, res: Response) => {
     bcrypt.compare(_password, user.password, (error: any, isMatch: boolean) => {
       if (error) {
         Logger.error(error);
-        return res.status(400).json({
-          success: 'false',
-          message: 'something went wrong !',
-          errors: error,
-        });
+        genericError(res, error);
       }
 
       if (!isMatch) {
@@ -56,11 +49,7 @@ const DeleteUser = (req: Request, res: Response) => {
         });
       } catch (error) {
         Logger.error(error);
-        return res.status(400).json({
-          success: 'false',
-          message: 'something went wrong !',
-          errors: error,
-        });
+        genericError(res, error);
       }
     });
   });

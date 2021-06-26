@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../../models/user';
 import Logger from '../../config/winston';
+import genericError from '../../utils/generic_error';
 
 const ShowAllUser = async (req: Request, res: Response) => {
   try {
@@ -14,11 +15,7 @@ const ShowAllUser = async (req: Request, res: Response) => {
     });
   } catch (error) {
     Logger.error(error);
-    return res.status(400).json({
-      success: 'false',
-      message: 'something went wrong !',
-      errors: error,
-    });
+    genericError(res, error);
   }
 };
 

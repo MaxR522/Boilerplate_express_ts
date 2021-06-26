@@ -12,6 +12,7 @@ import {
 import generateRefreshToken from '../../../utils/generate_refresh_tokens';
 import redisClient from '../../../config/db.connect';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const Login = async (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -20,11 +21,7 @@ const Login = async (req: Request, res: Response) => {
   const user = await User.findOne({ email: _email }, (error: any) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong',
-        errors: error,
-      });
+      genericError(res, error);
     }
   });
 
@@ -51,11 +48,7 @@ const Login = async (req: Request, res: Response) => {
       async (error: any, isMatch: boolean) => {
         if (error) {
           Logger.error(error);
-          return res.status(400).json({
-            success: 'false',
-            message: 'something went wrong',
-            errors: error,
-          });
+          genericError(res, error);
         }
 
         // If the req password doesn't match with hashed password in database
@@ -65,11 +58,7 @@ const Login = async (req: Request, res: Response) => {
           redisClient.incr(`AL_${_email}`, (error: any) => {
             if (error) {
               Logger.error(error);
-              return res.status(400).json({
-                success: 'false',
-                message: 'something went wrong',
-                errors: error,
-              });
+              genericError(res, error);
             }
             redisClient.expire(`AL_${_email}`, ttlAttemptLogin * 60);
           });
@@ -121,7 +110,7 @@ const Login = async (req: Request, res: Response) => {
         redisClient.get(user._id.toString(), async (error, data) => {
           if (error) {
             Logger.error(error);
-            throw error;
+            genericError(res, error);
           }
 
           if (data === null) {

@@ -7,6 +7,7 @@ import {
   confirmationTokenLimit,
 } from '../../../config/config';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const Register = async (req: Request, res: Response) => {
   const _fullname = req.body.fullname;
@@ -26,11 +27,7 @@ const Register = async (req: Request, res: Response) => {
     }
   } catch (error) {
     Logger.error(error);
-    return res.status(400).json({
-      success: 'false',
-      message: 'something went wrong !',
-      errors: error,
-    });
+    genericError(res, error);
   }
 
   // Generate confirmation token
@@ -76,11 +73,7 @@ const Register = async (req: Request, res: Response) => {
     });
   } catch (error) {
     Logger.error(error);
-    return res.status(400).json({
-      success: 'false',
-      message: 'something went wrong',
-      errors: error,
-    });
+    genericError(res, error);
   }
 };
 

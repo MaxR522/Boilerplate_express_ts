@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import redisClient from '../../../config/db.connect';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const RevokeRefreshToken = (req: Request, res: Response) => {
   const userId = req.userData.sub;
@@ -8,11 +9,7 @@ const RevokeRefreshToken = (req: Request, res: Response) => {
   redisClient.del(userId.toString(), (error, reply) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     Logger.warn('refresh token revoked');

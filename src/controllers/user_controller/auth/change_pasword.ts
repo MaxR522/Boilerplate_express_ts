@@ -3,6 +3,7 @@ import User from '../../../models/user';
 import IUser from '../../../interfaces/models/user_interface';
 import * as bcrypt from 'bcrypt';
 import Logger from '../../../config/winston';
+import genericError from '../../../utils/generic_error';
 
 const ChangePassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
@@ -12,11 +13,7 @@ const ChangePassword = (req: Request, res: Response) => {
   User.findOne({ email: _email }, (error: any, user: IUser) => {
     if (error) {
       Logger.error(error);
-      return res.status(400).json({
-        success: 'false',
-        message: 'something went wrong !',
-        errors: error,
-      });
+      genericError(res, error);
     }
 
     if (!user) {
@@ -33,11 +30,7 @@ const ChangePassword = (req: Request, res: Response) => {
       (error: any, isMatch: boolean) => {
         if (error) {
           Logger.error(error);
-          return res.status(400).json({
-            success: 'false',
-            message: 'something went wrong !',
-            errors: error,
-          });
+          genericError(res, error);
         }
 
         if (!isMatch) {
@@ -53,11 +46,7 @@ const ChangePassword = (req: Request, res: Response) => {
           user.save((error: any) => {
             if (error) {
               Logger.error(error);
-              return res.status(400).json({
-                success: 'false',
-                message: 'something went wrong !',
-                errors: error,
-              });
+              genericError(res, error);
             }
 
             return res.status(200).json({

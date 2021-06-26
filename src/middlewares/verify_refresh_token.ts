@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { refreshTokenSecret } from '../config/config';
 import redisClient from '../config/db.connect';
 import Logger from '../config/winston';
+import genericError from '../utils/generic_error';
 
 const verifyRefreshToken = (
   req: Request,
@@ -18,22 +19,14 @@ const verifyRefreshToken = (
     async (error: any, decoded: any) => {
       if (error) {
         Logger.error(error);
-        return res.status(401).json({
-          success: 'false',
-          message: 'Something went wrong',
-          errors: error,
-        });
+        genericError(res, error);
       }
 
       // Compare refresh_token with the stored in redis
       await redisClient.get(decoded.sub.toString(), (error, data) => {
         if (error) {
           Logger.error(error);
-          return res.status(400).json({
-            success: 'false',
-            message: 'Something went wrong',
-            errors: error,
-          });
+          genericError(res, error);
         }
 
         // If token inside redis is empty that's mean the user is logged out
