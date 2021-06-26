@@ -12,7 +12,6 @@ const ChangePassword = (req: Request, res: Response) => {
 
   User.findOne({ email: _email }, (error: any, user: IUser) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -29,7 +28,6 @@ const ChangePassword = (req: Request, res: Response) => {
       user.password,
       (error: any, isMatch: boolean) => {
         if (error) {
-          Logger.error(error);
           genericError(res, error);
         }
 
@@ -45,7 +43,6 @@ const ChangePassword = (req: Request, res: Response) => {
 
           user.save((error: any) => {
             if (error) {
-              Logger.error(error);
               genericError(res, error);
             }
 

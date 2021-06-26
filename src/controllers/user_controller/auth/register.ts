@@ -26,7 +26,6 @@ const Register = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    Logger.error(error);
     genericError(res, error);
   }
 
@@ -72,7 +71,6 @@ const Register = async (req: Request, res: Response) => {
       data: userData,
     });
   } catch (error) {
-    Logger.error(error);
     genericError(res, error);
   }
 };

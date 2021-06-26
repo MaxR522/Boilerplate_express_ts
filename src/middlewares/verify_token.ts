@@ -12,7 +12,6 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
   // Verify token validity
   jwt.verify(accessToken, accessTokenSecret, (error: any, decoded: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 

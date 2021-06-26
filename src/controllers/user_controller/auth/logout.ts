@@ -19,7 +19,6 @@ const Logout = async (req: Request, res: Response) => {
       ttlAccessToken * 60,
       (error) => {
         if (error) {
-          Logger.error(error);
           genericError(res, error);
         }
 

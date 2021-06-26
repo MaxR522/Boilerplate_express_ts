@@ -9,7 +9,6 @@ const checkUser = (req: Request, res: Response, next: NextFunction) => {
   // check the email in playload if it is not in database
   User.findOne({ email: _email }, (error: any, user: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 

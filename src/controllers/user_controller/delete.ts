@@ -12,7 +12,6 @@ const DeleteUser = (req: Request, res: Response) => {
 
   User.findOne({ _id: _id }, (error: any, user: IUser) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -25,7 +24,6 @@ const DeleteUser = (req: Request, res: Response) => {
 
     bcrypt.compare(_password, user.password, (error: any, isMatch: boolean) => {
       if (error) {
-        Logger.error(error);
         genericError(res, error);
       }
 
@@ -48,7 +46,6 @@ const DeleteUser = (req: Request, res: Response) => {
           data: user,
         });
       } catch (error) {
-        Logger.error(error);
         genericError(res, error);
       }
     });

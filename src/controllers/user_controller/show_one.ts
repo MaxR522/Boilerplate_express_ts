@@ -9,7 +9,6 @@ const ShowOneUser = (req: Request, res: Response) => {
 
   User.findOne({ _id: _id }, (error: any, user: IUser) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 

@@ -14,7 +14,6 @@ const ResetPassword = (req: Request, res: Response) => {
 
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -34,7 +33,6 @@ const ResetPassword = (req: Request, res: Response) => {
     user.passwordResetToken = passwordResetToken;
     await user.save((error: any) => {
       if (error) {
-        Logger.error(error);
         genericError(res, error);
       }
 

@@ -11,7 +11,6 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
   redisClient.get(`PR_${_email}`, (error: any, data: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -25,7 +24,6 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
     User.findOne({ email: _email }, async (error: any, user: IUser) => {
       if (error) {
-        Logger.error(error);
         genericError(res, error);
       }
 
@@ -40,7 +38,6 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
       await user.save((error: any) => {
         if (error) {
-          Logger.error(error);
           genericError(res, error);
         }
 

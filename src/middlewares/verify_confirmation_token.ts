@@ -17,14 +17,12 @@ const verifyConfirmationToken = async (
     confirmationTokenSecret,
     (error: any, decoded: any) => {
       if (error) {
-        Logger.error(error);
         genericError(res, error);
       }
 
       if (decoded) {
         User.findOne({ email: decoded.email }, (error: any, user: any) => {
           if (error) {
-            Logger.error(error);
             genericError(res, error);
           }
 

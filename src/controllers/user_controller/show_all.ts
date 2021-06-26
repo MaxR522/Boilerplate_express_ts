@@ -14,7 +14,6 @@ const ShowAllUser = async (req: Request, res: Response) => {
       data: allUser,
     });
   } catch (error) {
-    Logger.error(error);
     genericError(res, error);
   }
 };

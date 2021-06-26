@@ -20,7 +20,6 @@ const Login = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ email: _email }, (error: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
   });
@@ -47,7 +46,6 @@ const Login = async (req: Request, res: Response) => {
       user.password,
       async (error: any, isMatch: boolean) => {
         if (error) {
-          Logger.error(error);
           genericError(res, error);
         }
 
@@ -57,7 +55,6 @@ const Login = async (req: Request, res: Response) => {
           // increment value of attempt when password not matching
           redisClient.incr(`AL_${_email}`, (error: any) => {
             if (error) {
-              Logger.error(error);
               genericError(res, error);
             }
             redisClient.expire(`AL_${_email}`, ttlAttemptLogin * 60);
@@ -109,7 +106,6 @@ const Login = async (req: Request, res: Response) => {
 
         redisClient.get(user._id.toString(), async (error, data) => {
           if (error) {
-            Logger.error(error);
             genericError(res, error);
           }
 

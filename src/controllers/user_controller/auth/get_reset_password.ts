@@ -12,7 +12,6 @@ const GetResetPassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -23,7 +22,6 @@ const GetResetPassword = (req: Request, res: Response) => {
       ttlResetPassword * 60,
       (error: any) => {
         if (error) {
-          Logger.error(error);
           genericError(res, error);
         }
       },
@@ -34,7 +32,6 @@ const GetResetPassword = (req: Request, res: Response) => {
 
     user.save((error: any) => {
       if (error) {
-        Logger.error(error);
         genericError(res, error);
       }
 

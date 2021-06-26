@@ -8,7 +8,6 @@ const RevokeRefreshToken = (req: Request, res: Response) => {
 
   redisClient.del(userId.toString(), (error, reply) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 

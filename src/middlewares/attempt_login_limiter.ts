@@ -13,7 +13,6 @@ const attemptLoginLimiter = async (
 
   await redisClient.get(`AL_${_email}`, (error: any, data: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 

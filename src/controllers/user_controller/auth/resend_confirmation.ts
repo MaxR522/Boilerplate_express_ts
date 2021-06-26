@@ -14,7 +14,6 @@ const ResendConfirmation = (req: Request, res: Response) => {
 
   User.findOne({ email: _email }, async (error: any, user: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -43,7 +42,6 @@ const ResendConfirmation = (req: Request, res: Response) => {
       user.confirmationSentAt = new Date();
       user.save((error: any) => {
         if (error) {
-          Logger.error(error);
           genericError(res, error);
         }
 

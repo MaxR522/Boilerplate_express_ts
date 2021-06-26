@@ -24,7 +24,6 @@ const NewToken = async (req: Request, res: Response) => {
       accessToken,
     });
   } catch (error) {
-    Logger.error(error);
     genericError(res, error);
   }
 };

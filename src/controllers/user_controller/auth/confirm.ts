@@ -8,7 +8,6 @@ const Confirm = (req: Request, res: Response) => {
   const _email = req.userData.email;
   User.findOne({ email: _email }, (error: any, user: any) => {
     if (error) {
-      Logger.error(error);
       genericError(res, error);
     }
 
@@ -17,7 +16,6 @@ const Confirm = (req: Request, res: Response) => {
 
     user.save((error: any) => {
       if (error) {
-        Logger.error(error);
         genericError(res, error);
       }
 
