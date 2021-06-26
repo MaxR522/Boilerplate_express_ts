@@ -3,6 +3,7 @@ import User from '../../models/user';
 import IUser from '../../interfaces/models/user_interface';
 import Logger from '../../config/winston';
 import genericError from '../../utils/generic_error';
+import notFoundError from '../../utils/not_found_error';
 
 const ShowOneUser = (req: Request, res: Response) => {
   const _id = req.params.id;
@@ -13,10 +14,7 @@ const ShowOneUser = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'user not found, maybe not registered',
-      });
+      notFoundError(res);
     }
 
     if (user) {

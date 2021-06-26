@@ -13,6 +13,7 @@ import generateRefreshToken from '../../../utils/generate_refresh_tokens';
 import redisClient from '../../../config/db.connect';
 import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
+import notFoundError from '../../../utils/not_found_error';
 
 const Login = async (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -25,21 +26,18 @@ const Login = async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    return res.status(404).json({
-      success: false,
-      message: 'user not found, maybe not registered',
-    });
-  }
-
-  // Empty password means user use Oauth
-  if (!user.password) {
-    return res.status(409).json({
-      success: false,
-      message: 'Please login using your social creds',
-    });
+    notFoundError(res);
   }
 
   if (user) {
+    // Empty password means user use Oauth
+    if (!user.password) {
+      return res.status(409).json({
+        success: false,
+        message: 'Please login using your social creds',
+      });
+    }
+
     // Compare the request password with user hashed password
     bcrypt.compare(
       _password,

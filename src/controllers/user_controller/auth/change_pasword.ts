@@ -4,6 +4,7 @@ import IUser from '../../../interfaces/models/user_interface';
 import * as bcrypt from 'bcrypt';
 import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
+import notFoundError from '../../../utils/not_found_error';
 
 const ChangePassword = (req: Request, res: Response) => {
   const _email = req.userData.email;
@@ -17,10 +18,7 @@ const ChangePassword = (req: Request, res: Response) => {
 
     if (!user) {
       Logger.error('user not found');
-      return res.status(404).json({
-        success: false,
-        message: 'user not found, maybe not registered',
-      });
+      notFoundError(res);
     }
 
     bcrypt.compare(

@@ -3,6 +3,7 @@ import User from '../../models/user';
 import IUser from '../../interfaces/models/user_interface';
 import Logger from '../../config/winston';
 import genericError from '../../utils/generic_error';
+import notFoundError from '../../utils/not_found_error';
 
 const UpdateInfo = (req: Request, res: Response) => {
   const _id = req.params.id;
@@ -15,11 +16,7 @@ const UpdateInfo = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      Logger.error('user not found');
-      return res.status(404).json({
-        success: false,
-        message: 'User not found, maybe not registered',
-      });
+      notFoundError(res);
     }
 
     user.fullname = _newFullName || user.fullname;

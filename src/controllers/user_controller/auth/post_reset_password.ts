@@ -8,6 +8,7 @@ import {
 import sendPasswordResetMail from '../../../mailers/password_reset_mailer';
 import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
+import notFoundError from '../../../utils/not_found_error';
 
 const ResetPassword = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -18,10 +19,7 @@ const ResetPassword = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'user not found, maybe nor registered',
-      });
+      notFoundError(res);
     }
 
     const payload = { email: _email };

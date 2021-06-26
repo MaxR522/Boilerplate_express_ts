@@ -8,6 +8,7 @@ import {
 } from '../../../config/config';
 import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
+import notFoundError from '../../../utils/not_found_error';
 
 const ResendConfirmation = (req: Request, res: Response) => {
   const _email = req.body.email.toLowerCase();
@@ -18,10 +19,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'user not found, maybe not registered',
-      });
+      notFoundError(res);
     }
 
     if (user.confirmedAt) {
