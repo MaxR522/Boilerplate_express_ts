@@ -1,5 +1,5 @@
 /**
- * DRY all 400 error
+ * DRY all 400 generic error
  */
 
 import { Response } from 'express';
