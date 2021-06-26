@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import redisClient from '../index';
+import redisClient from '../config/db.connect';
 import Logger from '../config/winston';
 
 const blacklistedAccessCheck = (

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { refreshTokenSecret } from '../config/config';
-import redisClient from '../index';
+import redisClient from '../config/db.connect';
 import Logger from '../config/winston';
 
 const verifyRefreshToken = (

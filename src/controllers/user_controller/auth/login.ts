@@ -10,7 +10,7 @@ import {
   ttlAttemptLogin,
 } from '../../../config/config';
 import generateRefreshToken from '../../../utils/generate_refresh_tokens';
-import redisClient from '../../../index';
+import redisClient from '../../../config/db.connect';
 import Logger from '../../../config/winston';
 
 const Login = async (req: Request, res: Response) => {

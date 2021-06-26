@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../../models/user';
-import redisClient from '../../../index';
+import redisClient from '../../../config/db.connect';
 import {
   ttlResetPassword,
   redirectUrlPasswordReset,

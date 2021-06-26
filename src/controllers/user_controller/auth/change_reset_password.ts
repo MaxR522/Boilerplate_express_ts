@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import redisClient from '../../../index';
+import redisClient from '../../../config/db.connect';
 import User from '../../../models/user';
 import IUser from '../../../interfaces/models/user_interface';
 import Logger from '../../../config/winston';

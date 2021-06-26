@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import redisClient from '../index';
+import redisClient from '../config/db.connect';
 import { ObjectId } from 'mongoose';
 
 // Method to generate and store in Redis the refresh token

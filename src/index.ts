@@ -6,19 +6,10 @@
  *                                                                   *
  *********************************************************************/
 import * as express from 'express';
-import * as mongoose from 'mongoose';
-import * as redis from 'redis';
 import * as cors from 'cors';
 import * as cookieParser from 'cookie-parser';
 import morganMiddleware from './config/morganMiddlewares';
-import {
-  mongooseConfig,
-  port,
-  maxUploadLimit,
-  corsOption,
-  redisHost,
-  redisPort,
-} from './config/config';
+import { port, maxUploadLimit, corsOption } from './config/config';
 import Logger from './config/winston';
 import limiter from './middlewares/rate_limiter';
 import authRoute from './routes/api/auth';
@@ -99,36 +90,6 @@ app.use(
     }
   },
 );
-
-/******************************************************
- *
- * Database connection
- *
- ******************************************************/
-
-// connection to mongoDB
-mongoose.connect(mongooseConfig.dsn, mongooseConfig.options, (error) => {
-  if (error) {
-    Logger.error(`${error} ❌`);
-    throw error;
-  } else {
-    Logger.info(`Database :: mongodb connection @: ${mongooseConfig.dsn} ✅`);
-  }
-});
-
-// Connection to redis client
-const redisClient = redis.createClient(redisPort, redisHost);
-
-redisClient
-  .on('connect', () => {
-    Logger.info(`DATABASE :: redis connetion @ ${redisHost}:${redisPort} ✅`);
-  })
-  .on('error', (error) => {
-    Logger.error(`${error} ❌`);
-    throw error;
-  });
-
-export default redisClient;
 
 /******************************************************
  *

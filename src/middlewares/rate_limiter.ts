@@ -3,7 +3,7 @@ import { maxRequest, windowMs } from '../config/config';
 import { Request, Response } from 'express';
 import Logger from '../config/winston';
 import * as RedisStore from 'rate-limit-redis';
-import redisClient from '../index';
+import redisClient from '../config/db.connect';
 
 // What to do when our maximum request rate is breached
 const limitReached = (req: Request, res: Response) => {

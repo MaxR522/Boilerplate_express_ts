@@ -3,7 +3,7 @@ import User from '../../models/user';
 import IUser from '../../interfaces/models/user_interface';
 import Logger from '../../config/winston';
 import * as bcrypt from 'bcrypt';
-import redisClient from '../../index';
+import redisClient from '../../config/db.connect';
 
 const DeleteUser = (req: Request, res: Response) => {
   const _id = req.params.id;
