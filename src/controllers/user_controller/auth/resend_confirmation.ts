@@ -20,14 +20,14 @@ const ResendConfirmation = (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({
-        success: 'false',
+        success: false,
         message: 'user not found, maybe not registered',
       });
     }
 
     if (user.confirmedAt) {
       return res.status(409).json({
-        success: 'false',
+        success: false,
         message: 'Your account is already confirmed',
       });
     }
@@ -50,7 +50,7 @@ const ResendConfirmation = (req: Request, res: Response) => {
         sendConfirmationEmail('', _email, newConfirmationToken);
 
         return res.status(200).json({
-          success: 'true',
+          success: true,
           message: `A new confirmation email has been sent to: ${_email}`,
           data: { email: _email },
         });

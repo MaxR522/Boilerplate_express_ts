@@ -17,7 +17,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
     if (!data) {
       return res.status(403).json({
-        success: 'false',
+        success: false,
         message:
           'You are not allowed to perform this action, try to make new request again',
       });
@@ -31,7 +31,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
 
       if (!user) {
         return res.status(404).json({
-          success: 'false',
+          success: false,
           message: 'User not found, maybe not registered',
         });
       }
@@ -45,7 +45,7 @@ const ChangeResetedPassword = (req: Request, res: Response) => {
         }
 
         return res.status(200).json({
-          success: 'true',
+          success: true,
           message: 'Your password was changed successfully',
         });
       });

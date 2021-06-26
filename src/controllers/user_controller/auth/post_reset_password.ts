@@ -20,7 +20,7 @@ const ResetPassword = (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({
-        success: 'false',
+        success: false,
         message: 'user not found, maybe nor registered',
       });
     }
@@ -41,7 +41,7 @@ const ResetPassword = (req: Request, res: Response) => {
       sendPasswordResetMail(_email, passwordResetToken);
 
       return res.status(200).json({
-        success: 'true',
+        success: true,
         message: `A password reset instruction have been sent to the email: ${_email}`,
         data: { email: _email },
       });

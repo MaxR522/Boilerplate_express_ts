@@ -8,7 +8,7 @@ const checkValidationResult = (req: Request, res: Response, next: any) => {
     if (errors.array().some((element: any) => element.location === 'headers')) {
       Logger.error(`Missing header`);
       return res.status(401).json({
-        success: 'false',
+        success: false,
         message: 'header error',
         errors: errors.array(),
       });
@@ -17,7 +17,7 @@ const checkValidationResult = (req: Request, res: Response, next: any) => {
     if (errors.array().some((element: any) => element.location === 'cookies')) {
       Logger.error(`Missing cookies`);
       return res.status(401).json({
-        success: 'false',
+        success: false,
         message: 'cookies error',
         errors: errors.array(),
       });
@@ -25,7 +25,7 @@ const checkValidationResult = (req: Request, res: Response, next: any) => {
 
     Logger.error(`Wrong or missing params`);
     return res.status(422).json({
-      success: 'false',
+      success: false,
       message: 'Params error',
       errors: errors.array(),
     });

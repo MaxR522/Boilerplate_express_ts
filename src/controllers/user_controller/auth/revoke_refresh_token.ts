@@ -14,7 +14,7 @@ const RevokeRefreshToken = (req: Request, res: Response) => {
 
     Logger.warn('refresh token revoked');
     return res.status(200).json({
-      success: 'true',
+      success: true,
       message: 'Refresh token revoked successfully',
       data: reply,
     });

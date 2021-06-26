@@ -19,7 +19,7 @@ const ChangePassword = (req: Request, res: Response) => {
     if (!user) {
       Logger.error('user not found');
       return res.status(404).json({
-        success: 'false',
+        success: false,
         message: 'user not found, maybe not registered',
       });
     }
@@ -35,7 +35,7 @@ const ChangePassword = (req: Request, res: Response) => {
 
         if (!isMatch) {
           return res.status(403).json({
-            success: 'false',
+            success: false,
             message: 'wrong password',
           });
         }
@@ -50,7 +50,7 @@ const ChangePassword = (req: Request, res: Response) => {
             }
 
             return res.status(200).json({
-              success: 'true',
+              success: true,
               message: 'Your password was changed successfully',
             });
           });

@@ -33,7 +33,7 @@ const verifyRefreshToken = (
         if (data === null) {
           Logger.warn(`No refresh token inside redis, maybe logged out`);
           return res.status(401).json({
-            success: 'false',
+            success: false,
             message: 'Logged out, try to login',
           });
         }
@@ -44,7 +44,7 @@ const verifyRefreshToken = (
             `Different refresh token inside redis, maybe refresh token revoked`,
           );
           return res.status(401).json({
-            success: 'false',
+            success: false,
             message: 'Wrong token, please login',
           });
         }

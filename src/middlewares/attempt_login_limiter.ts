@@ -24,7 +24,7 @@ const attemptLoginLimiter = async (
     if (parseInt(data) >= maxAttemptOnLogin) {
       Logger.warn(`Max attempt on ${_email}`);
       return res.status(429).json({
-        success: 'false',
+        success: false,
         message: `Too many attempt on ${_email}, try again after 10 min`,
       });
     } else {

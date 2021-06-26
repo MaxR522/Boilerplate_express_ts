@@ -20,7 +20,7 @@ const blacklistedAccessCheck = (
     if (data === accessToken) {
       Logger.warn(`Access-token already blacklisted`);
       return res.status(401).json({
-        success: 'false',
+        success: false,
         message: 'you are logged out, please login again',
       });
     }

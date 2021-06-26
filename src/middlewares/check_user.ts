@@ -15,7 +15,7 @@ const checkUser = (req: Request, res: Response, next: NextFunction) => {
 
     if (!user) {
       return res.status(401).json({
-        success: 'false',
+        success: false,
         message: 'User not registered',
       });
     }

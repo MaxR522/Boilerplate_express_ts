@@ -15,7 +15,7 @@ const ShowOneUser = (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({
-        success: 'false',
+        success: false,
         message: 'user not found, maybe not registered',
       });
     }
@@ -33,7 +33,7 @@ const ShowOneUser = (req: Request, res: Response) => {
       };
 
       return res.status(200).json({
-        success: 'true',
+        success: true,
         data: userData,
       });
     }

@@ -9,7 +9,7 @@ import redisClient from '../config/db.connect';
 const limitReached = (req: Request, res: Response) => {
   Logger.warn(`IP::${req.ip} hit the max request limit`);
   return res.status(429).json({
-    success: 'false',
+    success: false,
     message: `Too many requests from this IP::${req.ip}, please try again after ${windowMs} minutes`,
   });
 }; // Options for our rate limiter

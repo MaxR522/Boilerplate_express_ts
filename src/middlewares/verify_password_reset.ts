@@ -30,14 +30,14 @@ const verifyPasswordResetToken = async (
 
           if (!user) {
             return res.status(404).json({
-              success: 'false',
+              success: false,
               message: 'user not found, please register again',
             });
           }
 
           if (user.passwordResetToken !== passwordResetToken) {
             return res.status(400).json({
-              success: 'false',
+              success: false,
               message: 'Invalid password reset token',
             });
           }

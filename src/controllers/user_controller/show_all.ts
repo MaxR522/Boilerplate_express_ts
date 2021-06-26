@@ -10,7 +10,7 @@ const ShowAllUser = async (req: Request, res: Response) => {
     );
 
     return res.status(200).json({
-      success: 'true',
+      success: true,
       data: allUser,
     });
   } catch (error) {

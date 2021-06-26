@@ -30,14 +30,14 @@ const verifyConfirmationToken = async (
 
           if (!user) {
             return res.status(404).json({
-              success: 'false',
+              success: false,
               message: 'user not found, please register again',
             });
           }
 
           if (user.confirmationToken !== confirmationToken) {
             return res.status(400).json({
-              success: 'false',
+              success: false,
               message: 'Invalid confirmation token',
             });
           }

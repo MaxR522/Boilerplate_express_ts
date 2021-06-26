@@ -27,7 +27,7 @@ const Login = async (req: Request, res: Response) => {
 
   if (!user) {
     return res.status(404).json({
-      success: 'false',
+      success: false,
       message: 'user not found, maybe not registered',
     });
   }
@@ -35,7 +35,7 @@ const Login = async (req: Request, res: Response) => {
   // Empty password means user use Oauth
   if (!user.password) {
     return res.status(409).json({
-      success: 'false',
+      success: false,
       message: 'Please login using your social creds',
     });
   }
@@ -64,7 +64,7 @@ const Login = async (req: Request, res: Response) => {
           });
 
           return res.status(401).json({
-            success: 'false',
+            success: false,
             message: 'Wrong email or password',
           });
         }
@@ -75,7 +75,7 @@ const Login = async (req: Request, res: Response) => {
         if (!user.confirmedAt) {
           Logger.error("User's email not confirmed");
           return res.status(401).json({
-            success: 'false',
+            success: false,
             message: 'email not confirmed',
           });
         }
@@ -131,7 +131,7 @@ const Login = async (req: Request, res: Response) => {
                 httpOnly: true,
               })
               .json({
-                success: 'true',
+                success: true,
                 message: 'User logged in successfully',
                 data: userData,
                 tokens: {
@@ -150,7 +150,7 @@ const Login = async (req: Request, res: Response) => {
                 httpOnly: true,
               })
               .json({
-                success: 'true',
+                success: true,
                 message: 'User logged in successfully',
                 data: userData,
                 tokens: {

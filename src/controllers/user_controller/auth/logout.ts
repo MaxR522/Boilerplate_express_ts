@@ -29,7 +29,7 @@ const Logout = async (req: Request, res: Response) => {
 
     // respond a success message if no error
     return res.status(200).json({
-      success: 'true',
+      success: true,
       message: 'user logged out',
     });
   }

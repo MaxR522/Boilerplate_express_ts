@@ -21,7 +21,7 @@ const Register = async (req: Request, res: Response) => {
     if (user) {
       Logger.error('email already exists');
       return res.status(409).json({
-        success: 'false',
+        success: false,
         message: `An account with email: ${_email} is already exists`,
       });
     }
@@ -67,7 +67,7 @@ const Register = async (req: Request, res: Response) => {
     );
 
     return res.status(201).json({
-      success: 'true',
+      success: true,
       message: `register success, a confirmation mail was sent into ${_email} `,
       data: userData,
     });

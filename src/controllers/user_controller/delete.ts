@@ -18,7 +18,7 @@ const DeleteUser = (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({
-        success: 'false',
+        success: false,
         message: 'user not found, maybe not registered',
       });
     }
@@ -31,7 +31,7 @@ const DeleteUser = (req: Request, res: Response) => {
 
       if (!isMatch) {
         return res.status(403).json({
-          success: 'false',
+          success: false,
           message: 'wrong password',
         });
       }
@@ -43,7 +43,7 @@ const DeleteUser = (req: Request, res: Response) => {
 
         Logger.warn(`${user.email} deleted`);
         return res.status(200).json({
-          success: 'true',
+          success: true,
           message: 'user deleted with success',
           data: user,
         });

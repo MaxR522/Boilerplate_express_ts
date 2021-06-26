@@ -6,7 +6,7 @@ import { Response } from 'express';
 
 const genericError = (res: Response, error: any) => {
   return res.status(400).json({
-    success: 'false',
+    success: false,
     message: 'Something went wrong !',
     errors: error,
   });
