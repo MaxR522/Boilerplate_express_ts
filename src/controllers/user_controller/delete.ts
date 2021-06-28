@@ -17,7 +17,7 @@ const DeleteUser = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      notFoundError(res);
+      notFoundError(res, 401);
     }
 
     bcrypt.compare(_password, user.password, (error: any, isMatch: boolean) => {

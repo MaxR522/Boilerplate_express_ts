@@ -17,7 +17,7 @@ const ChangePassword = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      notFoundError(res);
+      notFoundError(res, 401);
     }
 
     bcrypt.compare(
