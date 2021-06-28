@@ -12,7 +12,7 @@ const sendConfirmationEmail = (
   );
   Logger.info(' ');
   Logger.info(' ');
-  Logger.info(`${baseUrl}:${port}/api/confirm/${token}`);
+  Logger.info(`${baseUrl}:${port}/api/auth/confirm/${token}`);
   Logger.info(' ');
   Logger.info(' ');
   Logger.info(
@@ -26,7 +26,7 @@ const sendConfirmationEmail = (
       <h1>Email Confirmation</h1>
       <h2>Hello ${name}</h2>
       <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-      <a href=${baseUrl}:${port}/api/confirm/${token}> Click here</a>
+      <a href=${baseUrl}:${port}/api/auth/confirm/${token}> Click here</a>
     `,
   });
 };

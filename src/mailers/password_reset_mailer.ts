@@ -8,7 +8,7 @@ const sendPasswordResetMail = (email: string, token: string) => {
   );
   Logger.info(' ');
   Logger.info(' ');
-  Logger.info(`${baseUrl}:${port}/api/reset_password/${token}`);
+  Logger.info(`${baseUrl}:${port}/api/auth/reset_password/${token}`);
   Logger.info(' ');
   Logger.info(' ');
   Logger.info(
@@ -22,7 +22,7 @@ const sendPasswordResetMail = (email: string, token: string) => {
       <h1>Password Reset</h1>
       <h2>Your account using email: ${email} have made a request to change password</h2>
       <p>You can reset your password by clicking on this button</p>
-      <a href=${baseUrl}:${port}/api/reset_password/${token}> Click here</a>
+      <a href=${baseUrl}:${port}/api/auth/reset_password/${token}> Click here</a>
       <p>If it's not you who made this request, ignore this email, your password remain inchange</p>
     `,
   });

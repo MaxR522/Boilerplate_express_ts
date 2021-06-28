@@ -17,7 +17,6 @@ const ChangePassword = (req: Request, res: Response) => {
     }
 
     if (!user) {
-      Logger.error('user not found');
       notFoundError(res);
     }
 
@@ -30,6 +29,7 @@ const ChangePassword = (req: Request, res: Response) => {
         }
 
         if (!isMatch) {
+          Logger.warn(`wrong password ${_email}`);
           return res.status(403).json({
             success: false,
             message: 'wrong password',
