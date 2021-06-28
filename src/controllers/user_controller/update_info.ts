@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../models/user';
 import IUser from '../../interfaces/models/user_interface';
-import Logger from '../../config/winston';
 import genericError from '../../utils/generic_error';
 import notFoundError from '../../utils/not_found_error';
 

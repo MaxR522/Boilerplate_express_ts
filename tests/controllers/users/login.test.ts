@@ -1,10 +1,10 @@
 import 'chai-http';
 import * as chai from 'chai';
-require('dotenv').config();
 import { app } from '../../../src/index';
 import User from '../../../src/models/user';
 
 import 'express';
+require('dotenv').config();
 
 declare module 'express' {
   interface Request {

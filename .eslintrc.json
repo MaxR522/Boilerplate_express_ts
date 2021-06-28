@@ -14,7 +14,8 @@
     "node_modules/**",
     "dist/**",
     "specs/**/*",
-    "src/custom_typings"
+    "src/custom_typings",
+    "tests"
   ],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],

@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { passwordTokenSecret } from '../config/config';
 import User from '../models/user';
-import Logger from '../config/winston';
 import genericError from '../utils/generic_error';
 
 const verifyPasswordResetToken = async (

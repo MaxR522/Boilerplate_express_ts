@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/user';
-import Logger from '../config/winston';
 import genericError from '../utils/generic_error';
 
 const checkUser = (req: Request, res: Response, next: NextFunction) => {

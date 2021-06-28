@@ -31,7 +31,7 @@ const verifyRefreshToken = (
 
         // If token inside redis is empty that's mean the user is logged out
         if (data === null) {
-          Logger.warn(`No refresh token inside redis, maybe logged out`);
+          Logger.warn('No refresh token inside redis, maybe logged out');
           return res.status(401).json({
             success: false,
             message: 'Logged out, try to login',
@@ -41,7 +41,7 @@ const verifyRefreshToken = (
         // If token inside redis is different that's mean the user generated new refresh token by login
         if (JSON.parse(data).token !== refreshToken) {
           Logger.warn(
-            `Different refresh token inside redis, maybe refresh token revoked`,
+            'Different refresh token inside redis, maybe refresh token revoked',
           );
           return res.status(401).json({
             success: false,

@@ -6,7 +6,6 @@ import {
   passwordTokenLimit,
 } from '../../../config/config';
 import sendPasswordResetMail from '../../../mailers/password_reset_mailer';
-import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
 import notFoundError from '../../../utils/not_found_error';
 

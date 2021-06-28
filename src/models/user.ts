@@ -57,7 +57,7 @@ const UserSchema = new mongoose.Schema(
 
 // Hash user's password before save
 UserSchema.pre<IUser>('save', function (next) {
-  let user = this;
+  const user = this;
 
   // hash email
   const emailHashed = crypto.createHash('md5').update(user.email).digest('hex');

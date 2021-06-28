@@ -5,7 +5,7 @@ interface IPost extends Document {
   content: string;
   thumbnail: string;
   images: string;
-  user_id: string;
+  userId: string;
   author: string;
   tags: string[];
   likes: string[];

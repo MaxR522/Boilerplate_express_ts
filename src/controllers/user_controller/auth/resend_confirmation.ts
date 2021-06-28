@@ -6,7 +6,6 @@ import {
   confirmationTokenSecret,
   confirmationTokenLimit,
 } from '../../../config/config';
-import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
 import notFoundError from '../../../utils/not_found_error';
 

@@ -1,4 +1,4 @@
-import { body, cookie, header, param } from 'express-validator';
+import { body, cookie, header } from 'express-validator';
 // import Logger from '../config/winston';
 
 const authValidationFor = (route: string) => {

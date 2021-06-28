@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../../models/user';
 import { redirectUrlConfirmation } from '../../../config/config';
-import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
 
 const Confirm = (req: Request, res: Response) => {

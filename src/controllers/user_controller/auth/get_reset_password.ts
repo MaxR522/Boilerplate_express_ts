@@ -5,7 +5,6 @@ import {
   ttlResetPassword,
   redirectUrlPasswordReset,
 } from '../../../config/config';
-import Logger from '../../../config/winston';
 import genericError from '../../../utils/generic_error';
 
 const GetResetPassword = (req: Request, res: Response) => {
