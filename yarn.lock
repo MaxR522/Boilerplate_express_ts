@@ -2532,6 +2532,7 @@ mocha@^8.4.0:
     yargs-parser "20.2.4"
     yargs-unparser "2.0.0"
 
+
 mongodb-connection-string-url@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/mongodb-connection-string-url/-/mongodb-connection-string-url-2.0.0.tgz#72cea65084ffa45655670070efb57bb0a5da46bc"
@@ -2544,6 +2545,7 @@ mongodb@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-4.1.1.tgz#d328e832675e7351f58b642f833126dc89ac2e66"
   integrity sha512-fbACrWEyvr6yl0sSiCGV0sqEiBwTtDJ8iSojmkDjAfw9JnOZSAkUyv9seFSPYhPPKwxp1PDtyjvBNfMDz0WBLQ==
+
   dependencies:
     bson "^4.5.1"
     denque "^1.5.0"
@@ -2555,12 +2557,15 @@ mongoose@^6.0.4:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.0.4.tgz#e735eecd964b72e0d112c1e2df28449fb274b95f"
   integrity sha512-tkbyaGXj1gtIpsIBfp5fqWPzqL36nHfS0x4ykk0H9vHgSWXPvhzabtrs7c94li6Iqv13hTKXXQ4Q09o+mxIONw==
+
   dependencies:
     bson "^4.2.2"
     kareem "2.3.2"
+
     mongodb "4.1.1"
     mpath "0.8.4"
     mquery "4.0.0"
+
     ms "2.1.2"
     regexp-clone "1.0.0"
     sift "13.5.2"
